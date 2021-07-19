@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "unistore"
+version = "0.1.0"
+description = "A single vendor e-commerce site."
+authors = ["Aaditya Dulal <artdityadulal@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^3.2.5"
+black = "^21.6b0"
+
+[tool.poetry.dev-dependencies]
+black = "^21.6b0"
+flake8 = "^3.9.2"
+bandit = "^1.7.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
