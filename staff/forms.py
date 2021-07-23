@@ -1,5 +1,5 @@
 from django import forms
-
+from tinymce.widgets import TinyMCE
 from store.models import Product, Category
 from blog.models import Blog
 
@@ -47,7 +47,12 @@ class BlogForm(forms.ModelForm):
         fields = ["title", "description", "date", "image", "url"]
         widgets = {
             "title": forms.TextInput(),
-            "description": forms.Textarea(),
+            "description": TinyMCE(
+                attrs = {
+                    'required': False,
+                    'cols': 30, 'rows': 10,
+                }
+            ),
             "date": forms.DateTimeInput(),
             "image": forms.FileInput(),
             "url": forms.TextInput(),

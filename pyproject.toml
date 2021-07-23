@@ -11,6 +11,8 @@ black = "^21.6b0"
 django-crispy-forms = "^1.12.0"
 Pillow = "^8.3.1"
 django-resized = "^0.3.11"
+django-ckeditor = "^6.1.0"
+django-tinymce = "^3.3.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.6b0"

@@ -757,7 +757,7 @@
                     <button class="btn btn-link">
                       <i class="ion-android-open"></i> Details
                     </button>
-                    {{product | is_in_cart:request.session.cart }}
+                    {% comment %} {{product | is_in_cart:request.session.cart }} {% endcomment %}
                     <form action="/store" method="POST">
                     {% csrf_token %}
                     <input hidden type="text" name="product" value="{{product.id}}">

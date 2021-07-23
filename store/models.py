@@ -1,6 +1,4 @@
-from ctypes import resize
 from django.db import models
-from django.forms import ImageField
 
 # Create your models here.
 class Category(models.Model):
