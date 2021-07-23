@@ -8,6 +8,9 @@ authors = ["Aaditya Dulal <artdityadulal@gmail.com>"]
 python = "^3.9"
 Django = "^3.2.5"
 black = "^21.6b0"
+django-crispy-forms = "^1.12.0"
+Pillow = "^8.3.1"
+django-resized = "^0.3.11"
 
 [tool.poetry.dev-dependencies]
 black = "^21.6b0"

@@ -241,9 +241,14 @@
 
 
     <div class="toplinks">
-      <a href="#signin" data-toggle="modal" data-target="#Modal-Registration"> <i class="ion-person"></i> Registration</a>
-      <a href="#signin" data-toggle="modal" data-target="#Modal-SignIn"> <i class="ion-unlocked"></i> Sign In</a>
-      <a href="../favorites/"> <i class="ion-ios-heart"></i> Favorites </a>
+      {%if user.full_name%}
+      <a href="{% url 'home:logout' %}" class="ion-log-out"> Log out</a>
+      <a href="{% url 'home:register' %}" class="ion-person"> {{user.full_name}}</a>
+      <a href="./favorites/" class="ion-ios-heart"> Favorites </a>
+      {%else%}
+      <a href="{% url 'home:register' %}" class="ion-person"> Registration</a>
+      <a href="{% url 'home:login' %}" class="ion-unlocked"> Sign In</a>
+      {% endif %}
       <a href="tel:+80005554465" class="hidden-xs"> <i class="ion-android-call"></i> 8000 555-44-65 </a>
     </div>
 
@@ -324,145 +329,36 @@
       </div>
     </div>
     <hr class="offset-md">
-
+  
     <div class="blog">
       <div class="container">
         <div class="row">
 
+          {% for blog in blogs %}
           <div class="col-sm-6 col-md-6 item">
 
             <div class="body">
-              <a href="../blog/item-photo.html" class="view"><i class="ion-ios-book-outline"></i></a>
+              <a href="{{blog.url}}" target="_blank" class="view"><i class="ion-ios-book-outline"></i></a>
 
-              <a href="../blog/item-photo.html">
-                <img src="{% static 'assets/img/blog/img1.jpg' %}" title="Apple Devices" alt="Apple Devices">
+              <a href="" target="_blank">
+                <img src="{{blog.image.url}}" alt="Blog Post">
               </a>
 
               <div class="caption">
-                <h1 class="h3">The next generation of Multi-Touch</h1>
-                <label> 07.01.2017</label>
+                <h1 class="h3">{{blog.title}}</h1>
+                <label>{{blog.date}}</label>
                 <hr class="offset-sm">
 
                 <p>
-                  The original iPhone introduced the world to Multi-Touch, forever changing the way people experience technology. With 3D Touch, you can do things that were never possible before. It senses how deeply you press the display, letting you do all kinds of essential things more quickly and simply. And it gives you real-time feedback in the form of subtle taps from the all-new Taptic Engine.
+                  {{blog.description}}
                 </p>
                 <hr class="offset-sm">
 
-                <a href="../blog/item-photo.html"> View article <i class="ion-ios-arrow-right"></i> </a>
+                <a href="{{blog.url}}" target=_blank> Read full article <i class="ion-ios-arrow-right"></i> </a>
               </div>
             </div>
           </div>
-
-          <div class="col-sm-6 col-md-6 item">
-            <div class="body">
-              <a href="../blog/item-video.html" class="view"><i class="ion-ios-book-outline"></i></a>
-              <a href="../blog/item-video.html">
-                <img src="{% static 'assets/img/blog/img2.jpg' %}" title="Coffee" alt="Coffee">
-              </a>
-
-              <div class="caption">
-                <h1 class="h3">MacBook Pro - brand new day for business.</h1>
-                <label> 02.01.2017</label>
-                <hr class="offset-sm">
-
-                <p>
-                  Organizations everywhere are realizing the potential that Mac brings to their employees by giving them the freedom to use the tools they already know and love. Software and hardware made for each other. Because Apple designs both the software and hardware, every Mac delivers the best possible experience for employees.
-                </p>
-                <hr class="offset-sm">
-
-                <a href="../blog/item-video.html"> View article <i class="ion-ios-arrow-right"></i> </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-6 col-md-6 item">
-            <div class="body">
-              <a href="#" class="view"><i class="ion-ios-book-outline"></i></a>
-              <a href="#">
-                <img src="{% static 'assets/img/blog/img4.jpg' %}" title="HP Chromebook" alt="HP Chromebook">
-              </a>
-
-              <div class="caption">
-                <h1 class="h3">HP Chromebook review.</h1>
-                <label> 02.01.2017</label>
-                <hr class="offset-sm">
-
-                <p>
-                  HP’s Chromebook 11 G4 ($199) has a dull-gray shell that screams, “bulk education purchase” more than “buy me.” Precisely because this school-oriented model can bang around in backpacks, however, it could teach its consumer Chromebook cousins a thing or two about build quality.
-                </p>
-                <hr class="offset-sm">
-
-                <a href="#"> View article <i class="ion-ios-arrow-right"></i> </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-6 col-md-6 item">
-            <div class="body">
-              <a href="#" class="view"><i class="ion-ios-book-outline"></i></a>
-              <a href="#">
-                <img src="{% static 'assets/img/blog/img3.jpg' %}" alt="Apple Music" title="Apple Music"/>
-              </a>
-
-              <div class="caption">
-                <h1 class="h3">Apple Music changes, Apple and SUP and more</h1>
-                <label> 02.01.2017</label>
-                <hr class="offset-sm">
-
-                <p>
-                  Sunday is Mother’s Day. Wait, did you forget? Well, thanks to Apple, you can make a “Shot on iPhone” Mother’s Day video, using this site.  Upload an image, enter your name, and then you can post the final result so Mom can enjoy.
-                </p>
-                <hr class="offset-sm">
-
-                <a href="#"> View article <i class="ion-ios-arrow-right"></i> </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-6 col-md-6 item">
-            <div class="body">
-              <a href="#" class="view"><i class="ion-ios-book-outline"></i></a>
-              <a href="#">
-                <img src="{% static 'assets/img/blog/img2.jpg' %}" title="Coffee" alt="Coffee">
-              </a>
-
-              <div class="caption">
-                <h1 class="h3">MacBook Pro - brand new day for business.</h1>
-                <label> 02.01.2017</label>
-                <hr class="offset-sm">
-
-                <p>
-                  Organizations everywhere are realizing the potential that Mac brings to their employees by giving them the freedom to use the tools they already know and love. Software and hardware made for each other. Because Apple designs both the software and hardware, every Mac delivers the best possible experience for employees.
-                </p>
-                <hr class="offset-sm">
-
-                <a href="#"> View article <i class="ion-ios-arrow-right"></i> </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-6 col-md-6 item">
-            <div class="body">
-              <a href="#" class="view"><i class="ion-ios-book-outline"></i></a>
-              <a href="#">
-                <img src="{% static 'assets/img/blog/img1.jpg' %}" title="Apple Devices" alt="Apple Devices">
-              </a>
-
-              <div class="caption">
-                <h1 class="h3">The next generation of Multi-Touch</h1>
-                <label> 07.01.2017</label>
-                <hr class="offset-sm">
-
-                <p>
-                  The original iPhone introduced the world to Multi-Touch, forever changing the way people experience technology. With 3D Touch, you can do things that were never possible before. It senses how deeply you press the display, letting you do all kinds of essential things more quickly and simply. And it gives you real-time feedback in the form of subtle taps from the all-new Taptic Engine.
-                </p>
-                <hr class="offset-sm">
-
-                <a href="#"> View article <i class="ion-ios-arrow-right"></i> </a>
-              </div>
-            </div>
-          </div>
-
+          {% endfor %}
         </div>
 
         <nav>

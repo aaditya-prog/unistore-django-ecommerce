@@ -242,9 +242,14 @@
 
 
     <div class="toplinks">
-      <a href="#signin" data-toggle="modal" data-target="#Modal-Registration"> <i class="ion-person"></i> Registration</a>
-      <a href="#signin" data-toggle="modal" data-target="#Modal-SignIn"> <i class="ion-unlocked"></i> Sign In</a>
-      <a href="../favorites/"> <i class="ion-ios-heart"></i> Favorites </a>
+      {%if user.full_name%}
+      <a href="{% url 'home:logout' %}" class="ion-log-out"> Log out</a>
+      <a href="{% url 'home:register' %}" class="ion-person"> {{user.full_name}}</a>
+      <a href="./favorites/" class="ion-ios-heart"> Favorites </a>
+      {%else%}
+      <a href="{% url 'home:register' %}" class="ion-person"> Registration</a>
+      <a href="{% url 'home:login' %}" class="ion-unlocked"> Sign In</a>
+      {% endif %}
       <a href="tel:+80005554465" class="hidden-xs"> <i class="ion-android-call"></i> 8000 555-44-65 </a>
     </div>
 
