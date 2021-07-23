@@ -423,6 +423,7 @@
         {{user.full_name}}</a
       >
       <a href="./favorites/" class="ion-ios-heart"> Favorites </a>
+       <a href="{% url 'carts:index' %}" class="ion-ios-heart"> My cart </a>
       {%else%}
       <a href="{% url 'home:register' %}" class="ion-person"> Registration</a>
       <a href="{% url 'home:login' %}" class="ion-unlocked"> Sign In</a>
