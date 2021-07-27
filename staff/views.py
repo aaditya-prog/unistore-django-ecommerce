@@ -6,8 +6,12 @@ from django.contrib.auth.hashers import make_password
 from store.models import Category, Product
 from .forms import ProductForm, CategoryForm, BlogForm
 from blog.models import Blog
-
+from home.decorators import login_excluded, admin_access
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout as auth_logout
 # Create your views here.
+@login_required
+@admin_access("home:index")
 def useradd(request):
     if request.method == "POST":
         fm = UserAddForm(request.POST)
@@ -28,16 +32,22 @@ def useradd(request):
         fm = UserAddForm() 
     return render(request, "admin/users/add.html", {"form":fm})
 
+@login_required
+@admin_access("home:index")
 def view_users(request):
     userdata = User.objects.all()
     return render(request, "admin/users/users.html", {"userdata": userdata})
 
+@login_required
+@admin_access("home:index")
 def delete_user(request, id):
     if request.method == "POST":
         data = User.objects.get(pk=id)
         data.delete()
         return HttpResponseRedirect("/view-user")
 
+@login_required
+@admin_access("home:index")
 def update_user(request, id):
     if request.method == "POST":
         data = User.objects.get(pk=id)
@@ -61,9 +71,14 @@ def update_user(request, id):
         fm = RegisterForm(instance=data)
     return render(request, "admin/users/update.html", {"form": fm})
 
+@login_required
+@admin_access("home:index")
 def logout(request):
+    auth_logout(request)
     return render(request, "home/index.html")
 
+@login_required
+@admin_access("home:index")
 def productAdd(request):
     if request.method == "POST":
         frm = ProductForm(data=(request.POST or None), files=(request.FILES or None))
@@ -83,12 +98,14 @@ def productAdd(request):
         frm = ProductForm()
     return render(request, "admin/product/productadd.html", {"form": frm})
 
-
+@login_required
+@admin_access("home:index")
 def ProductView(request):
     productdata = Product.objects.all()
     return render(request, "admin/product/productread.html", {"data": productdata})
 
-
+@login_required
+@admin_access("home:index")
 def delete_product(request, id):
     if request.method == "POST":
         data = Product.objects.get(pk=id)
@@ -96,7 +113,8 @@ def delete_product(request, id):
         messages.success(request, "Product successfully deleted.")
     return redirect("staff:productread")
 
-
+@login_required
+@admin_access("home:index")
 def update_product(request, id):
     if request.method == "POST":
         data = Product.objects.get(pk=id)
@@ -111,6 +129,8 @@ def update_product(request, id):
         fm = ProductForm(instance=data)
     return render(request, "admin/product/productupdate.html", {"form": fm})
 
+@login_required
+@admin_access("home:index")
 def categoryAdd(request):
     if request.method == "POST":
         fm = CategoryForm(request.POST)
@@ -129,12 +149,14 @@ def categoryAdd(request):
         fm = CategoryForm()
     return render(request, "admin/category/categoryadd.html", {"form": fm})
 
-
+@login_required
+@admin_access("home:index")
 def categoryRead(request):
     data = Category.objects.all()
     return render(request, "admin/category/categoryread.html", {"catdata": data})
 
-
+@login_required
+@admin_access("home:index")
 def delete_category(request, id):
     if request.method == "POST":
         data = Category.objects.get(pk=id)
@@ -142,8 +164,8 @@ def delete_category(request, id):
         messages.success(request, "One category deleted successfully")
     return redirect("staff:categoryread")
 
-
-
+@login_required
+@admin_access("home:index")
 def update_category(request, id):
     if request.method == "POST":
         data = Category.objects.get(pk=id)
@@ -158,7 +180,8 @@ def update_category(request, id):
         fm = CategoryForm(instance=data)
     return render(request, "admin/category/categoryupdate.html", {"form": fm})
 
-
+@login_required
+@admin_access("home:index")
 def BlogAdd(request):
     if request.method == "POST":
         frm = BlogForm(data=(request.POST or None), files=(request.FILES or None))
@@ -179,12 +202,14 @@ def BlogAdd(request):
         frm = BlogForm()
     return render(request, "admin/blog/blogadd.html", {"form": frm})
 
-
+@login_required
+@admin_access("home:index")
 def BlogView(request):
     blogdata = Blog.objects.all()
     return render(request, "admin/blog/blogread.html", {"blogdata": blogdata})
 
-
+@login_required
+@admin_access("home:index")
 def delete_blog(request, id):
     if request.method == "POST":
         data = Blog.objects.get(pk=id)
@@ -192,6 +217,8 @@ def delete_blog(request, id):
         messages.success(request, "Blog successfully deleted.")
     return redirect("staff:blogread")
 
+@login_required
+@admin_access("home:index")
 def update_blog(request, id):
     if request.method == "POST":
         data = Blog.objects.get(pk=id)

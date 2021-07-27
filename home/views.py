@@ -6,11 +6,23 @@ from . models import User
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
-
+from .decorators import login_excluded, admin_access
+from store.models import Product, Category
 # Create your views here.
 def index(request):
-    print(request.session.get('user_email'))
-    return render(request, "home/index.html")
+    products = None
+        # request.session.get('cart').clear()
+    categories = Category.get_all_categories()
+    categoryID = request.GET.get('category')
+    if categoryID:
+        products = Product.objects.filter(category = Category.category_id).order_by("-id")[:1]
+    else:
+        products = Product.objects.filter().order_by("-id")[:1]
+
+    data = {}
+    data["products"] = products
+    data["categories"] = categories
+    return render(request, "home/index.html",data)
 
 def register(request):
     if request.method == "POST":
@@ -31,6 +43,7 @@ def register(request):
         fm = RegisterForm() 
     return render(request, "home/register.html", {"form":fm})
 
+@login_excluded("home:index")
 def user_login(request):
     if request.method == "POST":
         fm = AuthenticationForm(request=request, data=request.POST)
