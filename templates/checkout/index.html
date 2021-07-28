@@ -14,8 +14,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="../favicon.png">
     
     <!-- Bootstrap -->
-    <link href="{% static 'assets/css/bootstrap.css' %}" rel="stylesheet"
-    <link href="{% static '/css/custom.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/custom.css' %}" rel="stylesheet">
     <link href="{% static 'assets/css/carousel.css' %}" rel="stylesheet">
     <link href="{% static 'assets/ionicons-2.0.1/css/ionicons.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -75,7 +75,7 @@
           <div class="media">
             <div class="media-left">
               <a href="#">
-                <img class="media-object" src="{% static 'assets/img/products/chrome-book-14.jpg' %}" alt="HP Chromebook 11' %}"/>
+                <img class="media-object" src="{% static 'assets/img/products/chrome-book-14.jpg' %}" alt="HP Chromebook 11"/>
               </a>
             </div>
             <div class="media-body">
@@ -101,7 +101,7 @@
           <div class="media">
             <div class="media-left">
               <a href="#">
-                <img class="media-object" src="{% static 'assets/img/products/ipad-air.jpg' %}" alt="iPad Air' %}"/>
+                <img class="media-object" src="{% static 'assets/img/products/ipad-air.jpg' %}" alt="iPad Air"/>
               </a>
             </div>
             <div class="media-body">
@@ -264,10 +264,10 @@
 
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="{% url 'home:index' %}">Home</a></li>
-              <li><a href="{% url 'store:index' %}">Store</a></li>
-              <li><a href="{% url 'blog:index' %}">Blog</a></li>
-              <li><a href="{% url 'contacts:index' %}">Contacts</a></li>
+              <li><a href="../">Home</a></li>
+              <li><a href="../store/">Store</a></li>
+              <li><a href="../blog/">Blog</a></li>
+              <li><a href="../contacts/">Contacts</a></li>
               <li class="dropdown">
                 <a href="../store/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   More <i class="ion-android-arrow-dropdown"></i>
@@ -275,7 +275,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="../store/product.html">Product</a></li>
                   <li><a href="../about/">About Us</a></li>
-                  <li><a href="{% url 'checkout:index' %}">Checkout</a></li>
+                  <li><a href="../checkout/">Checkout</a></li>
                   <li><a href="../faq/">FAQ</a></li>
                   <li><a href="../gallery/">Gallery</a></li>
                   <li role="separator" class="divider"></li>

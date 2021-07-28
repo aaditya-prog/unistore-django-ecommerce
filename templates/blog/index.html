@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>
-      Blog &middot; Unistore Pro &middot; Premium Responsive E-Commerce Template
+      Blog &middot; Unistore &middot;
     </title>
 
     <meta name="description" content="" />
@@ -447,7 +447,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../"> Unistore Pro </a>
+          <a class="navbar-brand" href="../"> Unistore </a>
           <a
             class="navbar-brand pull-right hidden-sm hidden-md hidden-lg"
             href="#open-cart"
@@ -461,7 +461,7 @@
             <li><a href="{%url 'home:index' %}">Home</a></li>
             <li><a href="{%url 'store:index' %}">Store</a></li>
             <li class="active"><a href="{%url 'blog:index' %}">Blog</a></li>
-            <li><a href="{% url 'contacts:index' %}">Contacts</a></li>
+            <li><a href="{% url 'home:contact' %}">Contacts</a></li>
             <li class="dropdown">
               <a
                 href="../store/"
@@ -476,7 +476,7 @@
               <ul class="dropdown-menu">
                 <li><a href="../store/product.html">Product</a></li>
                 <li><a href="../about/">About Us</a></li>
-                <li><a href="{% url 'checkout:index' %}">Checkout</a></li>
+                <li><a href="{% url 'store:checkout' %}">Checkout</a></li>
                 <li><a href="../faq/">FAQ</a></li>
                 <li><a href="../gallery/">Gallery</a></li>
                 <li role="separator" class="divider"></li>
@@ -536,7 +536,7 @@
     <div class="blog">
       <div class="container">
         <div class="row">
-          {% for blog in blogs %}
+          {% for blog in page_obj %}
           <div class="col-sm-6 col-md-6 item">
             <div class="body">
               <a href="{{blog.url}}" target="_blank" class="view"
@@ -567,23 +567,31 @@
         <nav>
           <ul class="pagination">
             <li>
-              <a href="#" aria-label="Previous">
+              {% if page_obj.has_previous %}
+              <a
+                href="?page={{page_obj.previous_page_number}}"
+                aria-label="Previous"
+              >
                 <span aria-hidden="true"
                   ><i class="ion-ios-arrow-left"></i
                 ></span>
               </a>
+              {% endif %}
             </li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li class="disabled"><a href="#">..</a></li>
+            <li class="active"><a href="">{{page_obj.number}}</a></li>
+            {% comment %}
+            <li><a href="?page=2">2</a></li>
+            <li><a href="?page=3">3</a></li>
             <li><a href="#">10</a></li>
+            {% endcomment %}
             <li>
-              <a href="#" aria-label="Next">
+              {% if page_obj.has_next %}
+              <a href="?page={{page_obj.next_page_number}}" aria-label="Next">
                 <span aria-hidden="true"
                   ><i class="ion-ios-arrow-right"></i
                 ></span>
               </a>
+              {% endif %}
             </li>
           </ul>
         </nav>
@@ -819,7 +827,7 @@
               hidden-sm hidden-xs
             "
           >
-            <h1 class="h4">Unistore Pro, Inc.</h1>
+            <h1 class="h4">Unistore, Inc.</h1>
 
             <address>
               1305 Market Street, Suite 800<br />
@@ -1136,7 +1144,12 @@
       type="text/javascript"
       src="{% static 'assets/js/jquery.ui.touch-punch.js' %}"
     ></script>
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>tinymce.init({selector:'textarea'});</script>
+    <script
+      src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"
+      referrerpolicy="origin"
+    ></script>
+    <script>
+      tinymce.init({ selector: "textarea" });
+    </script>
   </body>
 </html>

@@ -23,12 +23,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("home.urls")),
-    path("store", include("store.urls")),
-    path("blog", include("blog.urls")),
-    path("contacts", include("contacts.urls")),
-    path("checkout", include("checkout.urls")),
+    path("store/", include("store.urls")),
+    path("blog/", include("blog.urls")),
     path("staff/", include("staff.urls")),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-     path('tinymce/', include('tinymce.urls')),
-     path("carts", include("carts.urls")),
+    path('tinymce/', include('tinymce.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

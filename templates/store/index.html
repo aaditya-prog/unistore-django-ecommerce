@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  {% load static%} {%load cart%}
+  {% load static %}
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -34,7 +34,25 @@
       href="{% static 'assets/css/custom-scroll/jquery.mCustomScrollbar.css' %}"
       rel="stylesheet"
     />
-
+    <script type="text/javascript"> 
+        var user = '{{request.user}}'
+        function getToken(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getToken('csrftoken');
+    </script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -420,7 +438,6 @@
         {{user.full_name}}</a
       >
       <a href="./favorites/" class="ion-ios-heart"> Favorites </a>
-      <a href="{% url 'carts:index' %}" class="ion-ios-heart"> My cart </a>
       {%else%}
       <a href="{% url 'home:register' %}" class="ion-person"> Registration</a>
       <a href="{% url 'home:login' %}" class="ion-unlocked"> Sign In</a>
@@ -446,7 +463,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../"> Unistore Pro </a>
+          <a class="navbar-brand" href="../"> Unistore </a>
           <a
             class="navbar-brand pull-right hidden-sm hidden-md hidden-lg"
             href="#open-cart"
@@ -460,7 +477,7 @@
             <li><a href="{%url 'home:index' %}">Home</a></li>
             <li class="active"><a href="{%url 'store:index' %}">Store</a></li>
             <li><a href="{%url 'blog:index' %}">Blog</a></li>
-            <li><a href="{% url 'contacts:index' %}">Contacts</a></li>
+            <li><a href="{% url 'home:contact' %}">Contact</a></li>
             <li class="dropdown">
               <a
                 href="../store/"
@@ -475,7 +492,7 @@
               <ul class="dropdown-menu">
                 <li><a href="../store/product.html">Product</a></li>
                 <li><a href="../about/">About Us</a></li>
-                <li><a href="../checkout/">Checkout</a></li>
+                <li><a href="{% url 'store:checkout' %}">Checkout</a></li>
                 <li><a href="../faq/">FAQ</a></li>
                 <li><a href="../gallery/">Gallery</a></li>
                 <li role="separator" class="divider"></li>
@@ -778,7 +795,6 @@
           </div>
         </div>
         <!-- /// -->
-
         <!-- Products -->
         <div class="col-sm-8 col-md-9">
           <hr class="offset-lg" />
@@ -801,35 +817,19 @@
                   <div class="content">
                     <h1 class="h3">{{product.name}}</h1>
                     <p class="price">${{product.price}}</p>
-                    <label>{{product.category.name}}</label>
-
+                    <label><strong>{{product.category.name}}</strong></label>
                     <button class="btn btn-link">
-                      <i class="ion-android-open"></i> Details
-                    </button>
-                    {% comment %} {{product | is_in_cart:request.session.cart }}
-                    {% endcomment %}
-                    <form action="/store" method="POST">
-                      {% csrf_token %}
-                      <input
-                        hidden
-                        type="text"
-                        name="product"
-                        value="{{product.id}}"
-                      />
-                      <div class="text-center">
-                        <input
-                          class="btn btn-primary btn-sm rounded"
-                          type="submit"
-                          value=" Add to cart"
-                        />
-                      </div>
-                    </form>
+                  <i class="ion-android-open"></i> Details
+                </button>
+                <button data-product={{product.id}} data-action="add" class="btn btn-primary btn-sm rounded update-cart">
+                  <i class="ion-bag"></i> Add to cart
+                </button>
                   </div>
                 </div>
               </div>
               {% endfor %} {%else%}
               <div class="text-center">
-              <div class="product">
+              <div class="product">>
               <br/><br/><br/><br/><br/><br/><br/>
                 <div class="body">
                   <div class="content">
@@ -1104,7 +1104,7 @@
               hidden-sm hidden-xs
             "
           >
-            <h1 class="h4">Unistore Pro, Inc.</h1>
+            <h1 class="h4">Unistore, Inc.</h1>
 
             <address>
               1305 Market Street, Suite 800<br />
@@ -1155,7 +1155,7 @@
             <hr class="offset-sm hidden-sm" />
             <hr class="offset-sm" />
             <p>
-              Unistore Pro © 2016 <br />
+              Unistore © 2016 <br />
               Designed By
               <a href="http://sunrise.ru.com/" target="_blank"
                 >Sunrise Digital</a
@@ -1408,7 +1408,7 @@
     <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'assets/js/core.js' %}"></script>
     <script src="{% static 'assets/js/store.js' %}"></script>
-
+    <script src="{% static 'assets/js/cart.js' %}"></script>
     <script
       type="text/javascript"
       src="{% static 'assets/js/custom-scroll/jquery.mCustomScrollbar.concat.min.js' %}"

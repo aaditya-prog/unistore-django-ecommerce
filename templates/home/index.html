@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Unistore Pro &middot; Premium Responsive E-Commerce Template</title>
+    <title>Unistore &middot;</title>
 
     <meta
       name="description"
@@ -410,7 +410,7 @@
         <div class="checkout container-fluid">
           <div class="row">
             <div class="col-xs-12 col-sm-12 align-right">
-              <a class="btn btn-primary" href="{% url 'checkout:index' %}">
+              <a class="btn btn-primary" href="{% url 'store:checkout' %}">
                 Checkout order
               </a>
             </div>
@@ -432,7 +432,7 @@
       <a href="{% url 'home:login' %}" class="ion-unlocked"> Sign In</a>
       {% endif %}
       <a href="tel:+80005554465" class="hidden-xs">
-        <i class="ion-android-call"></i> 8000 555-44-65
+        <i class="ion-android-call"></i> 01-4993306
       </a>
     </div>
 
@@ -452,7 +452,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="./"> Unistore Pro </a>
+          <a class="navbar-brand" href="./"> Unistore </a>
           <a
             class="navbar-brand pull-right hidden-sm hidden-md hidden-lg"
             href="#open-cart"
@@ -466,7 +466,7 @@
             <li class="active"><a href="{%url 'home:index' %}">Home</a></li>
             <li><a href="{% url 'store:index' %}">Store</a></li>
             <li><a href="{% url 'blog:index' %}">Blog</a></li>
-            <li><a href="{% url 'contacts:index' %}">Contacts</a></li>
+            <li><a href="{% url 'home:contact' %}">Contact</a></li>
             <li class="dropdown">
               <a
                 href="{% url 'store:index' %}"
@@ -481,7 +481,7 @@
               <ul class="dropdown-menu">
                 <li><a href="./store/product.html">Product</a></li>
                 <li><a href="./about/">About Us</a></li>
-                <li><a href="{% url 'checkout:index' %}">Checkout</a></li>
+                <li><a href="{% url 'store:checkout' %}">Checkout</a></li>
                 <li><a href="./faq/">FAQ</a></li>
                 <li><a href="./gallery/">Gallery</a></li>
                 <li role="separator" class="divider"></li>
@@ -770,22 +770,20 @@
       <div class="container">
         <h2 class="h2 upp align-center">Desktops</h2>
         <hr class="offset-lg" />
-
         <div class="row">
+          {% for product in products %}
           <div class="col-sm-6 col-md-3 product">
             <div class="body">
               <a href="#favorites" class="favorites" data-favorite="inactive"
                 ><i class="ion-ios-heart-outline"></i
               ></a>
               <a href="./"
-                ><img
-                  src="{% static 'assets/img/products/apple-imac-27-retina.jpg' %}"
-                  alt="Apple iMac 27 Retina"
+                ><img src="{{product.image.url}}" alt="Apple iMac 27 Retina"
               /></a>
 
               <div class="content align-center">
-                <p class="price">$2099.99</p>
-                <h2 class="h3">iMac 27 Retina</h2>
+                <p class="price">$ {{product.price}}</p>
+                <h2 class="h3">{{product.name}}</h2>
                 <hr class="offset-sm" />
 
                 <button class="btn btn-link">
@@ -797,7 +795,7 @@
               </div>
             </div>
           </div>
-
+          {% endfor %}
           <div class="col-sm-6 col-md-3 product">
             <div class="body">
               <a href="#favorites" class="favorites" data-favorite="inactive"
@@ -1125,77 +1123,37 @@
       <div class="container">
         <h2 class="h2 upp align-center">Blog Headlines</h2>
         <hr class="offset-lg" />
-
+        {% for blog in blogs %}
         <div class="row">
           <div class="col-sm-6 col-md-6 item">
             <div class="body">
               <a href="#" class="view"><i class="ion-ios-book-outline"></i></a>
               <a href="#">
                 <img
-                  src="{% static 'assets/img/blog/img1.jpg' %}"
-                  title="Apple Devices"
-                  alt="Apple Devices"
+                  src="{{blog.image.url}}"
+                  title="{{blog.name}}"
+                  alt="{{blog.name}}"
                 />
               </a>
 
               <div class="caption">
-                <h2 class="h3">The next generation of Multi-Touch</h2>
-                <label> 07.01.2017</label>
+                <h2 class="h3">{{blog.title}}</h2>
+                <label> {{blog.date}}</label>
                 <hr class="offset-sm" />
 
-                <p>
-                  The original iPhone introduced the world to Multi-Touch,
-                  forever changing the way people experience technology. With 3D
-                  Touch, you can do things that were never possible before. It
-                  senses how deeply you press the display, letting you do all
-                  kinds of essential things more quickly and simply. And it
-                  gives you real-time feedback in the form of subtle taps from
-                  the all-new Taptic Engine.
-                </p>
+                <p>{{blog.description}}</p>
                 <hr class="offset-sm" />
 
-                <a href="#"> View article </a>
+                <a href="{{blog.url}}"> View article </a>
               </div>
             </div>
           </div>
-
-          <div class="col-sm-6 col-md-6 item">
-            <div class="body">
-              <a href="#" class="view"><i class="ion-ios-book-outline"></i></a>
-              <a href="#">
-                <img
-                  src="{% static 'assets/img/blog/img2.jpg' %}"
-                  title="Coffee"
-                  alt="Coffee"
-                />
-              </a>
-
-              <div class="caption">
-                <h2 class="h3">MacBook Pro - brand new day for business.</h2>
-                <label> 02.01.2017</label>
-                <hr class="offset-sm" />
-
-                <p>
-                  Organizations everywhere are realizing the potential that Mac
-                  brings to their employees by giving them the freedom to use
-                  the tools they already know and love. Software and hardware
-                  made for each other. Because Apple designs both the software
-                  and hardware, every Mac delivers the best possible experience
-                  for employees.
-                </p>
-                <hr class="offset-sm" />
-
-                <a href="#">
-                  View article <i class="ion-ios-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
 
         <div class="align-right align-center-xs">
           <hr class="offset-sm" />
-          <a href="./blog/"> <h5 class="upp">View all articles</h5> </a>
+          <a href="{% url 'blog:index' %}"> <h5 class="upp">View all articles</h5> </a>
         </div>
       </div>
     </section>
@@ -1429,7 +1387,7 @@
               hidden-sm hidden-xs
             "
           >
-            <h1 class="h4">Unistore Pro, Inc.</h1>
+            <h1 class="h4">Unistore, Inc.</h1>
 
             <address>
               1305 Market Street, Suite 800<br />
@@ -1480,7 +1438,7 @@
             <hr class="offset-sm hidden-sm" />
             <hr class="offset-sm" />
             <p>
-              Unistore Pro © 2021 <br />
+              Unistore © 2021 <br />
               Designed By
               <a href="http://aadityadulal.com/" target="_blank"
                 >Aaditya Dulal</a

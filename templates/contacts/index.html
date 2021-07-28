@@ -408,7 +408,7 @@
         <div class="checkout container-fluid">
           <div class="row">
             <div class="col-xs-12 col-sm-12 align-right">
-              <a class="btn btn-primary" href="{% url 'checkout:index' %}">
+              <a class="btn btn-primary" href="{% url 'store:checkout' %}">
                 Checkout order
               </a>
             </div>
@@ -464,7 +464,7 @@
             <li><a href="{% url 'store:index' %}">Store</a></li>
             <li><a href="{% url 'blog:index' %}">Blog</a></li>
             <li class="active">
-              <a href="{% url 'contacts:index' %}">Contacts</a>
+              <a href="{% url 'home:contact' %}">Contact</a>
             </li>
             <li class="dropdown">
               <a
@@ -480,7 +480,7 @@
               <ul class="dropdown-menu">
                 <li><a href="../store/product.html">Product</a></li>
                 <li><a href="../about/">About Us</a></li>
-                <li><a href="{% url 'checkout:index' %}">Checkout</a></li>
+                <li><a href="{% url 'store:checkout' %}">Checkout</a></li>
                 <li><a href="../faq/">FAQ</a></li>
                 <li><a href="../gallery/">Gallery</a></li>
                 <li role="separator" class="divider"></li>
