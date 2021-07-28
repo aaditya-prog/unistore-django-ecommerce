@@ -785,7 +785,7 @@
 
           <div class="products">
             <div class="row">
-              {% if products%} {% for product in products %}
+              {% if products%} {% for product in page_obj %}
               <div class="col-sm-6 col-md-4 product">
                 <div class="body">
                   <a
@@ -847,23 +847,26 @@
           <nav>
             <ul class="pagination">
               <li>
-                <a href="#" aria-label="Previous">
+                    {% if page_obj.has_previous %}
+                <a href="?page={{page_obj.previous_page_number}}" aria-label="Previous">
                   <span aria-hidden="true"
                     ><i class="ion-ios-arrow-left"></i
                   ></span>
                 </a>
+                {% endif %}
               </li>
-              <li class="active"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li class="disabled"><a href="#">..</a></li>
-              <li><a href="#">10</a></li>
+              <li class="active"><a href="">{{page_obj.number}}</a></li>
+              {% comment %} <li><a href="?page=2">2</a></li>
+              <li><a href="?page=3">3</a></li>
+              <li><a href="#">10</a></li> {% endcomment %}
               <li>
-                <a href="#" aria-label="Next">
+              {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" aria-label="Next">
                   <span aria-hidden="true"
                     ><i class="ion-ios-arrow-right"></i
                   ></span>
                 </a>
+                {% endif %}
               </li>
             </ul>
           </nav>
