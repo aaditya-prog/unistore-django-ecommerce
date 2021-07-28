@@ -1,9 +1,10 @@
-from itertools import product
 from django.shortcuts import render, redirect
 from .models import Product, Category
 from django.views import View
 from .filters import ProductFilter
 from django.core.paginator import Paginator
+from django.http import JsonResponse
+import json
 # Create your views here.
 def index(request):
     products = None
@@ -31,3 +32,19 @@ def index(request):
     data["page_obj"] = page_obj
     return render(request, "store/index.html",data)
 
+def checkout(request):
+    #use this insdead of print functions in order to test request data.
+    from pdb import set_trace
+    set_trace()
+    return render(request, "checkout/index.html")
+
+def updateItem(request):
+    data = json.loads(request.body)
+    productId = data['productId']
+    action = data['action']
+    print("Action:", action)
+    print("productId", productId)
+
+    customer = request.user
+    product = Product.objects.get(id=productId)
+    return JsonResponse('Item was added', safe=False) 
