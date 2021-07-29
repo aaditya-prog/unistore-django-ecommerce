@@ -6,8 +6,8 @@ from store import views
 app_name = "store"
 urlpatterns = [
     path("", views.index, name="index"),
+    path("cart", views.add_to_cart, name="cart"),
     path("checkout", views.checkout, name="checkout"),
-    path("update-item", views.updateItem, name="update-item"),
-
+    path("remove/<int:id>", views.delete_cart, name="remove"),
     
 ]
