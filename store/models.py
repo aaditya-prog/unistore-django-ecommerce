@@ -1,4 +1,6 @@
 from django.db import models
+from home.models import User
+
 
 # Create your models here.
 class Category(models.Model):
@@ -9,7 +11,8 @@ class Category(models.Model):
 
     @staticmethod
     def get_all_categories():
-        return Category.objects.all()    
+        return Category.objects.all()
+
 
 class Product(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -22,6 +25,12 @@ class Product(models.Model):
 
     def get_products_by_Categoryid(category_id):
         if category_id:
-            return Product.objects.filter(category = category_id)
+            return Product.objects.filter(category=category_id)
         else:
-            return Product.get_all_products()  
+            return Product.get_all_products()
+
+
+class Product_bought(models.Model):
+    bought_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    is_bought = models.BooleanField(default=False)

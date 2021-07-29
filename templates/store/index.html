@@ -11,7 +11,8 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="Sunrise Digital" />
-
+    <!--JQuery -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap -->
     <link href="{% static 'assets/css/bootstrap.css' %}" rel="stylesheet" />
     <link href="{% static 'assets/css/custom.css' %}" rel="stylesheet" />
@@ -34,25 +35,6 @@
       href="{% static 'assets/css/custom-scroll/jquery.mCustomScrollbar.css' %}"
       rel="stylesheet"
     />
-    <script type="text/javascript"> 
-        var user = '{{request.user}}'
-        function getToken(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-const csrftoken = getToken('csrftoken');
-    </script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -62,7 +44,8 @@ const csrftoken = getToken('csrftoken');
   </head>
   <body>
     <div class="cart" data-toggle="inactive">
-      <div class="label"><i class="ion-bag"></i> 7</div>
+
+      <div class="label"><i class="ion-bag"></i> {{ cart|length }}</div>
 
       <div class="overlay"></div>
 
@@ -75,20 +58,23 @@ const csrftoken = getToken('csrftoken');
         </div>
 
         <div class="content">
+            {% for item in cart %}
+
+
           <div class="media">
             <div class="media-left">
               <a href="#">
                 <img
                   class="media-object"
-                  src="{% static 'assets/img/products/chrome-book-11.jpg' %}"
-                  alt="HP Chromebook 11"
+                  src="{{ item.product.image.url }}"
+                  alt="{{ item.product.name }} image"
                 />
               </a>
             </div>
             <div class="media-body">
-              <h2 class="h4 media-heading">HP Chromebook 11</h2>
-              <label>Laptops</label>
-              <p class="price">$199.99</p>
+              <h2 class="h4 media-heading">{{item.product.name}}</h2>
+              <label>{{item.product.category}}</label>
+              <p class="price">${{item.product.price}}</p>
             </div>
             <div class="controls">
               <div class="input-group">
@@ -119,304 +105,14 @@ const csrftoken = getToken('csrftoken');
                 </span>
               </div>
               <!-- /input-group -->
+                <form action="{% url 'store:remove' item.id %}" method="POST">
+                    {% csrf_token %}
+                     <input class="btn-sm btn-primary" type="submit" value="Remove">
+                </form>
 
-              <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
             </div>
           </div>
-
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img
-                  class="media-object"
-                  src="{% static 'assets/img/products/chrome-book-14.jpg' %}"
-                  alt="HP Chromebook 11"
-                />
-              </a>
-            </div>
-            <div class="media-body">
-              <h2 class="h4 media-heading">HP Chromebook 14</h2>
-              <label>Laptops</label>
-              <p class="price">$209.99</p>
-            </div>
-            <div class="controls">
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <button
-                    class="btn btn-default btn-sm"
-                    type="button"
-                    data-action="minus"
-                  >
-                    <i class="ion-minus-round"></i>
-                  </button>
-                </span>
-                <input
-                  type="text"
-                  class="form-control input-sm"
-                  placeholder="Qty"
-                  value="1"
-                  readonly=""
-                />
-                <span class="input-group-btn">
-                  <button
-                    class="btn btn-default btn-sm"
-                    type="button"
-                    data-action="plus"
-                  >
-                    <i class="ion-plus-round"></i>
-                  </button>
-                </span>
-              </div>
-              <!-- /input-group -->
-
-              <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
-            </div>
-          </div>
-
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img
-                  class="media-object"
-                  src="{% static 'assets/img/products/ipad-air.jpg' %}"
-                  alt="iPad Air"
-                />
-              </a>
-            </div>
-            <div class="media-body">
-              <h2 class="h4 media-heading">iPad Air</h2>
-              <label>Tablets</label>
-              <p class="price">$449.99</p>
-            </div>
-            <div class="controls">
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <button
-                    class="btn btn-default btn-sm"
-                    type="button"
-                    data-action="minus"
-                  >
-                    <i class="ion-minus-round"></i>
-                  </button>
-                </span>
-                <input
-                  type="text"
-                  class="form-control input-sm"
-                  placeholder="Qty"
-                  value="1"
-                  readonly=""
-                />
-                <span class="input-group-btn">
-                  <button
-                    class="btn btn-default btn-sm"
-                    type="button"
-                    data-action="plus"
-                  >
-                    <i class="ion-plus-round"></i>
-                  </button>
-                </span>
-              </div>
-              <!-- /input-group -->
-
-              <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
-            </div>
-          </div>
-
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img
-                  class="media-object"
-                  src="{% static 'assets/img/products/mi-pad-2.jpg' %}"
-                  alt="HP Chromebook 11"
-                />
-              </a>
-            </div>
-            <div class="media-body">
-              <h2 class="h4 media-heading">Mi Pad 2</h2>
-              <label>Tablets</label>
-              <p class="price">$199.99</p>
-            </div>
-            <div class="controls">
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <button
-                    class="btn btn-default btn-sm"
-                    type="button"
-                    data-action="minus"
-                  >
-                    <i class="ion-minus-round"></i>
-                  </button>
-                </span>
-                <input
-                  type="text"
-                  class="form-control input-sm"
-                  placeholder="Qty"
-                  value="1"
-                  readonly=""
-                />
-                <span class="input-group-btn">
-                  <button
-                    class="btn btn-default btn-sm"
-                    type="button"
-                    data-action="plus"
-                  >
-                    <i class="ion-plus-round"></i>
-                  </button>
-                </span>
-              </div>
-              <!-- /input-group -->
-
-              <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
-            </div>
-          </div>
-
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img
-                  class="media-object"
-                  src="{% static 'assets/img/products/lenovo-yoga.jpg' %}"
-                  alt="Lenovo Yoga"
-                />
-              </a>
-            </div>
-            <div class="media-body">
-              <h2 class="h4 media-heading">Lenovo Yoga</h2>
-              <label>Hybrid</label>
-              <p class="price">$199.99</p>
-            </div>
-            <div class="controls">
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <button
-                    class="btn btn-default btn-sm"
-                    type="button"
-                    data-action="minus"
-                  >
-                    <i class="ion-minus-round"></i>
-                  </button>
-                </span>
-                <input
-                  type="text"
-                  class="form-control input-sm"
-                  placeholder="Qty"
-                  value="1"
-                  readonly=""
-                />
-                <span class="input-group-btn">
-                  <button
-                    class="btn btn-default btn-sm"
-                    type="button"
-                    data-action="plus"
-                  >
-                    <i class="ion-plus-round"></i>
-                  </button>
-                </span>
-              </div>
-              <!-- /input-group -->
-
-              <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
-            </div>
-          </div>
-
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img
-                  class="media-object"
-                  src="{% static 'assets/img/products/surface-pro.jpg' %}"
-                  alt="HP Chromebook 11"
-                />
-              </a>
-            </div>
-            <div class="media-body">
-              <h2 class="h4 media-heading">Surface Pro</h2>
-              <label>Hybrid</label>
-              <p class="price">$199.99</p>
-            </div>
-            <div class="controls">
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <button
-                    class="btn btn-default btn-sm"
-                    type="button"
-                    data-action="minus"
-                  >
-                    <i class="ion-minus-round"></i>
-                  </button>
-                </span>
-                <input
-                  type="text"
-                  class="form-control input-sm"
-                  placeholder="Qty"
-                  value="1"
-                  readonly=""
-                />
-                <span class="input-group-btn">
-                  <button
-                    class="btn btn-default btn-sm"
-                    type="button"
-                    data-action="plus"
-                  >
-                    <i class="ion-plus-round"></i>
-                  </button>
-                </span>
-              </div>
-              <!-- /input-group -->
-
-              <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
-            </div>
-          </div>
-
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img
-                  class="media-object"
-                  src="{% static 'assets/img/products/asus-transformer.jpg' %}"
-                  alt="HP Chromebook 11"
-                />
-              </a>
-            </div>
-            <div class="media-body">
-              <h2 class="h4 media-heading">ASUS Transformer</h2>
-              <label>Hybrid</label>
-              <p class="price">$199.99</p>
-            </div>
-            <div class="controls">
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <button
-                    class="btn btn-default btn-sm"
-                    type="button"
-                    data-action="minus"
-                  >
-                    <i class="ion-minus-round"></i>
-                  </button>
-                </span>
-                <input
-                  type="text"
-                  class="form-control input-sm"
-                  placeholder="Qty"
-                  value="1"
-                  readonly=""
-                />
-                <span class="input-group-btn">
-                  <button
-                    class="btn btn-default btn-sm"
-                    type="button"
-                    data-action="plus"
-                  >
-                    <i class="ion-plus-round"></i>
-                  </button>
-                </span>
-              </div>
-              <!-- /input-group -->
-
-              <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
-            </div>
-          </div>
+            {% endfor %}
         </div>
 
         <div class="checkout container-fluid">
@@ -821,9 +517,11 @@ const csrftoken = getToken('csrftoken');
                     <button class="btn btn-link">
                   <i class="ion-android-open"></i> Details
                 </button>
-                <button data-product={{product.id}} data-action="add" class="btn btn-primary btn-sm rounded update-cart">
-                  <i class="ion-bag"></i> Add to cart
-                </button>
+                <form action="{% url 'store:cart' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="productId" value="{{product.id}}">
+                <input class="btn btn-primary btn-sm rounded update-cart" type="submit" value="Add to Cart">
+                </form>
                   </div>
                 </div>
               </div>
@@ -1408,7 +1106,6 @@ const csrftoken = getToken('csrftoken');
     <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'assets/js/core.js' %}"></script>
     <script src="{% static 'assets/js/store.js' %}"></script>
-    <script src="{% static 'assets/js/cart.js' %}"></script>
     <script
       type="text/javascript"
       src="{% static 'assets/js/custom-scroll/jquery.mCustomScrollbar.concat.min.js' %}"
@@ -1423,4 +1120,25 @@ const csrftoken = getToken('csrftoken');
       src="{% static 'assets/js/jquery.ui.touch-punch.js' %}"
     ></script>
   </body>
+
 </html>
+{#<script type="text/javascript">#}
+{#        $(document).on('submit', '#add-to-cart-form', function(e){#}
+{#            e.preventDefault();#}
+{##}
+{#            $.ajax({#}
+{#                type:'POST',#}
+{#                url:'/store/cart',#}
+{#                data:{#}
+{#                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),#}
+{##}
+{#                    productId:$('#productId').val(),#}
+{#                    userId:$('#userId').val(),#}
+{#                },#}
+{#                success: function(data){#}
+{#                    $('h3').html(data);#}
+{##}
+{#                }#}
+{#            })#}
+{#        })#}
+{#    </script>#}

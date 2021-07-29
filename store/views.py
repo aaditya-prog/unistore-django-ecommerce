@@ -1,50 +1,79 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
-from .models import Product, Category
+from .models import Product, Category, Product_bought
 from django.views import View
 from .filters import ProductFilter
 from django.core.paginator import Paginator
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 import json
+
+
 # Create your views here.
 def index(request):
     products = None
     # request.session.get('cart').clear()
     categories = Category.get_all_categories()
-    categoryID = request.GET.get('category')
+    category_id = request.GET.get('category')
     sort = request.GET.get('sort')
-    if categoryID:
-        products = Product.get_products_by_Categoryid(categoryID)
+    if category_id:
+        products = Product.get_products_by_Categoryid(category_id)
     elif sort:
-        products = Product.objects.filter().order_by(sort)      
+        products = Product.objects.filter().order_by(sort)
     else:
         products = Product.get_all_products().order_by("id")
-    paginator = Paginator(products,6)
+    paginator = Paginator(products, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    myFilter = ProductFilter(request.GET, queryset=products)
-    products = myFilter.qs
-    
-    data={}
-    data["products"] = products
-    data["categories"] = categories
-    data["myFilter"] = myFilter
-    data["page_obj"] = page_obj
-    return render(request, "store/index.html",data)
+    my_filter = ProductFilter(request.GET, queryset=products)
+    products = my_filter.qs
+    cart = Product_bought.objects.filter(is_bought=False)
+
+    data = {"products": products, "categories": categories, "my_filter": my_filter, "page_obj": page_obj,
+            "cart": cart}
+    return render(request, "store/index.html", data)
+
+
+def add_to_cart(request):
+    if request.method == "POST":
+        product_id = request.POST.get("productId")
+        product = Product.objects.get(id=product_id)
+        bought_by = request.user
+        product_bought = Product_bought(bought_by=bought_by, product=product)
+        product_bought.save()
+    return redirect("store:index")
+
+
+# def add_to_cart(request):
+#     if request.method == "POST":
+#         product_id = request.POST.get("productId")
+#         user_id = request.POST.get("userId")
+#         product = Product.objects.get(id=product_id)
+#         user = User.objects.get(id=user_id)
+#         bought_by = user
+#         product_bought = Product_bought(bought_by=bought_by, product=product)
+#         product_bought.save()
+#         success = "added to cart"
+#         return HttpResponse(success)
+
+def delete_cart(request, id):
+    if request.method == "POST":
+        data = Product_bought.objects.get(pk=id)
+        data.delete()
+        messages.success(request, "Product successfully deleted.")
+    return redirect("store:index")
+
 
 def checkout(request):
-    #use this insdead of print functions in order to test request data.
-    from pdb import set_trace
-    set_trace()
-    return render(request, "checkout/index.html")
 
-def updateItem(request):
-    data = json.loads(request.body)
-    productId = data['productId']
-    action = data['action']
-    print("Action:", action)
-    print("productId", productId)
-
-    customer = request.user
-    product = Product.objects.get(id=productId)
-    return JsonResponse('Item was added', safe=False) 
+    items = Product_bought.objects.filter(is_bought=False)
+    paginator = Paginator(items, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    total = 0
+    for item in items:
+        total = total + int(item.product.price)
+    data = {"page_obj": page_obj,
+            "total": total
+            }
+    return render(request, "checkout/index.html", data)
