@@ -7,13 +7,13 @@ class RegisterForm(forms.ModelForm):
     class Meta:
         model = User
 
-        fields = ["full_name", "email", "password",]
+        fields = ["full_name", "email", "password", ]
 
         labels = {
             "full_name": "Full Name",
             "email": "Email",
             "password": "Password",
-           
+
         }
 
         # help_text = {
@@ -30,14 +30,14 @@ class RegisterForm(forms.ModelForm):
             "full_name": forms.TextInput(
                 attrs={
                     "placeholder": "Enter your name",
-                     "class": "form-control",
+                    "class": "form-control",
                 }
             ),
 
             "email": forms.EmailInput(
                 attrs={
                     "placeholder": "Enter your email",
-                     "class": "form-control",
+                    "class": "form-control",
                 }
             ),
 
@@ -50,11 +50,12 @@ class RegisterForm(forms.ModelForm):
 
         }
 
+
 class UserAddForm(forms.ModelForm):
     class Meta:
         model = User
 
-        fields = ["full_name", "email", "password","staff",]
+        fields = ["full_name", "email", "password", "staff", ]
 
         labels = {
             "full_name": "Full Name",
@@ -77,14 +78,14 @@ class UserAddForm(forms.ModelForm):
             "full_name": forms.TextInput(
                 attrs={
                     "placeholder": "Enter your name",
-                     "class": "form-control",
+                    "class": "form-control",
                 }
             ),
 
             "email": forms.EmailInput(
                 attrs={
                     "placeholder": "Enter your email",
-                     "class": "form-control",
+                    "class": "form-control",
                 }
             ),
 
@@ -102,6 +103,7 @@ class UserAddForm(forms.ModelForm):
             ),
         }
 
+
 class ContactForm(forms.Form):
-    message = forms.CharField(widget = forms.Textarea, max_length = 2000)
-    email_address = forms.EmailField(max_length = 150)
+    message = forms.CharField(widget=forms.Textarea, max_length=2000)
+    email_address = forms.EmailField(max_length=150)

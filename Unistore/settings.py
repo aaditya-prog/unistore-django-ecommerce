@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'tinymce',
     'django_filters',
-    'home',
+    'accounts',
     'store',
     'blog',
     'staff',
@@ -90,7 +90,7 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = "home.User"
+AUTH_USER_MODEL = "accounts.User"
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

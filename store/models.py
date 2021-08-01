@@ -1,5 +1,5 @@
 from django.db import models
-from home.models import User
+from accounts.models import User
 
 
 # Create your models here.
@@ -30,7 +30,29 @@ class Product(models.Model):
             return Product.get_all_products()
 
 
-class Product_bought(models.Model):
+class Cart(models.Model):
     bought_by = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     is_bought = models.BooleanField(default=False)
+
+
+PAYMENT_CHOICES = [
+    ('COD', 'Cash on delivery'),
+    ('Paypal', 'Paypal'),
+    ('Card', 'Use your credit/debit card'),
+]
+
+
+class Orders(models.Model):
+    items = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    total = models.IntegerField()
+    receiver = models.CharField(max_length=100)
+    phone = models.IntegerField()
+    email = models.EmailField()
+    city = models.CharField(max_length=100)
+    street = models.CharField(max_length=100)
+    building = models.CharField(max_length=100)
+    payment = models.CharField(max_length=20, choices=PAYMENT_CHOICES)
+    promo = models.CharField(max_length=100)
+    user = models.CharField(max_length=100)
+

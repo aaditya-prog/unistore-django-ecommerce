@@ -42,7 +42,7 @@ def register(request):
         fm = RegisterForm() 
     return render(request, "home/register.html", {"form":fm})
 
-@login_excluded("home:index")
+@login_excluded("accounts:index")
 def user_login(request):
     if request.method == "POST":
         fm = AuthenticationForm(request=request, data=request.POST)

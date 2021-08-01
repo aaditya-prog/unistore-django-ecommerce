@@ -16,7 +16,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_staffuser(self, email, password):
+    def create_staff(self, email, password):
         """
         Creates and saves a staff user with the given email and password.
         """

@@ -21,5 +21,5 @@ urlpatterns = [
     path("view-blog/", views.BlogView, name="blogread"),
     path("delete-blog/<int:id>", views.delete_blog, name="deleteblog"),
     path("update-blog/<int:id>", views.update_blog, name="updateblog"),
-
+    path("view-orders/", views.Order, name="orderread"),
 ]
