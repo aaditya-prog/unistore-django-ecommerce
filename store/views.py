@@ -1,12 +1,20 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
+<<<<<<< HEAD
 from .models import Product, Category, Cart
+=======
+from .models import Product, Category, Product_bought
+>>>>>>> origin/main
 from django.views import View
 from .filters import ProductFilter
 from django.core.paginator import Paginator
 from django.http import JsonResponse, HttpResponseRedirect
 import json
+<<<<<<< HEAD
 from .forms import OrderForm
+=======
+
+>>>>>>> origin/main
 
 # Create your views here.
 def index(request):
@@ -27,7 +35,11 @@ def index(request):
 
     my_filter = ProductFilter(request.GET, queryset=products)
     products = my_filter.qs
+<<<<<<< HEAD
     cart = Cart.objects.filter(is_bought=False)
+=======
+    cart = Product_bought.objects.filter(is_bought=False)
+>>>>>>> origin/main
 
     data = {"products": products, "categories": categories, "my_filter": my_filter, "page_obj": page_obj,
             "cart": cart}
@@ -39,7 +51,11 @@ def add_to_cart(request):
         product_id = request.POST.get("productId")
         product = Product.objects.get(id=product_id)
         bought_by = request.user
+<<<<<<< HEAD
         product_bought = Cart(bought_by=bought_by, product=product)
+=======
+        product_bought = Product_bought(bought_by=bought_by, product=product)
+>>>>>>> origin/main
         product_bought.save()
     return redirect("store:index")
 
@@ -58,15 +74,24 @@ def add_to_cart(request):
 
 def delete_cart(request, id):
     if request.method == "POST":
+<<<<<<< HEAD
         data = Cart.objects.get(pk=id)
+=======
+        data = Product_bought.objects.get(pk=id)
+>>>>>>> origin/main
         data.delete()
         messages.success(request, "Product successfully deleted.")
     return redirect("store:index")
 
 
 def checkout(request):
+<<<<<<< HEAD
     form = OrderForm()
     items = Cart.objects.filter(is_bought=False).order_by("id")
+=======
+
+    items = Product_bought.objects.filter(is_bought=False)
+>>>>>>> origin/main
     paginator = Paginator(items, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -74,6 +99,7 @@ def checkout(request):
     for item in items:
         total = total + int(item.product.price)
     data = {"page_obj": page_obj,
+<<<<<<< HEAD
             "total": total,
             "form": form
             }
@@ -84,3 +110,8 @@ def order(request):
     if request.method == "POST":
         pass
     return render(request, "store/index.html")
+=======
+            "total": total
+            }
+    return render(request, "checkout/index.html", data)
+>>>>>>> origin/main

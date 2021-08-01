@@ -1,4 +1,5 @@
 from django import forms
+<<<<<<< HEAD
 from .models import Orders
 
 
@@ -51,3 +52,6 @@ class OrderForm(forms.ModelForm):
                 }
             ),
         }
+=======
+
+>>>>>>> origin/main
