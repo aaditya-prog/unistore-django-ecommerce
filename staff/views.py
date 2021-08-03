@@ -19,15 +19,13 @@ def useradd(request):
         fm = UserAddForm(request.POST)
         if fm.is_valid():
             name = fm.cleaned_data["full_name"]
-            email = fm.cleaned_data['email']
+            email = fm.cleaned_data["email"]
             password = fm.cleaned_data["password"]
             staff = fm.cleaned_data["staff"]
             user = User(full_name=name, email=email, password=password, staff=staff)
             user.set_password(password)
             user.save()
-            messages.success(
-                request, "User registration Successful"
-            )
+            messages.success(request, "User registration Successful")
         else:
             messages.error(request, "Registration failed")
     else:

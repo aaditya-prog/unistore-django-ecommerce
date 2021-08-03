@@ -123,7 +123,7 @@
 
                     <!-- <img src="assets/img/carousel/ipadair2.jpg" alt="Apple Devices" title="Apple Devices" class="item-right hidden-xs"/> -->
 
-                    <div class="content">
+                    div class="content">
                         <div class="outside-content">
                             <div class="inside-content">
                                 <div class="container align-right">
@@ -608,7 +608,7 @@
                             <label> {{ blog.date }}</label>
                             <hr class="offset-sm"/>
 
-                            <p>{{ blog.description }}</p>
+                            <p>{{ blog.description|safe }}</p>
                             <hr class="offset-sm"/>
 
                             <a href="{{ blog.url }}"> View article </a>

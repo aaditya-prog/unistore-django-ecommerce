@@ -7,13 +7,16 @@ class RegisterForm(forms.ModelForm):
     class Meta:
         model = User
 
-        fields = ["full_name", "email", "password", ]
+        fields = [
+            "full_name",
+            "email",
+            "password",
+        ]
 
         labels = {
             "full_name": "Full Name",
             "email": "Email",
             "password": "Password",
-
         }
 
         # help_text = {
@@ -33,21 +36,18 @@ class RegisterForm(forms.ModelForm):
                     "class": "form-control",
                 }
             ),
-
             "email": forms.EmailInput(
                 attrs={
                     "placeholder": "Enter your email",
                     "class": "form-control",
                 }
             ),
-
             "password": forms.PasswordInput(
                 attrs={
                     "placeholder": "Choose a password",
                     "class": "form-control",
                 }
             ),
-
         }
 
 
@@ -55,7 +55,12 @@ class UserAddForm(forms.ModelForm):
     class Meta:
         model = User
 
-        fields = ["full_name", "email", "password", "staff", ]
+        fields = [
+            "full_name",
+            "email",
+            "password",
+            "staff",
+        ]
 
         labels = {
             "full_name": "Full Name",
@@ -81,21 +86,18 @@ class UserAddForm(forms.ModelForm):
                     "class": "form-control",
                 }
             ),
-
             "email": forms.EmailInput(
                 attrs={
                     "placeholder": "Enter your email",
                     "class": "form-control",
                 }
             ),
-
             "password": forms.PasswordInput(
                 attrs={
                     "placeholder": "Choose a password",
                     "class": "form-control",
                 }
             ),
-
             "staff": forms.CheckboxInput(
                 attrs={
                     "class": "form-check",

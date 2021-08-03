@@ -48,9 +48,10 @@ class BlogForm(forms.ModelForm):
         widgets = {
             "title": forms.TextInput(),
             "description": TinyMCE(
-                attrs = {
-                    'required': False,
-                    'cols': 30, 'rows': 10,
+                attrs={
+                    "required": False,
+                    "cols": 30,
+                    "rows": 10,
                 }
             ),
             "date": forms.DateTimeInput(),

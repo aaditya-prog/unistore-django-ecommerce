@@ -1,9 +1,6 @@
 from django.db import models
-<<<<<<< HEAD
 from accounts.models import User
-=======
-from home.models import User
->>>>>>> origin/main
+from accounts.models import User
 
 
 # Create your models here.
@@ -34,7 +31,6 @@ class Product(models.Model):
             return Product.get_all_products()
 
 
-<<<<<<< HEAD
 class Cart(models.Model):
     bought_by = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -59,11 +55,6 @@ class Orders(models.Model):
     building = models.CharField(max_length=100)
     payment = models.CharField(max_length=20, choices=PAYMENT_CHOICES)
     promo = models.CharField(max_length=100)
-    user = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-=======
-class Product_bought(models.Model):
-    bought_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    is_bought = models.BooleanField(default=False)
->>>>>>> origin/main
+

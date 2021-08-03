@@ -78,4 +78,3 @@ class User(AbstractBaseUser):
 
     def is_superuser(self):
         return self.admin
-
