@@ -5,7 +5,7 @@ from .models import Orders
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Orders
-        fields = ["receiver", "phone", "email", "city", "street", "building", "payment", "promo", "user"]
+        fields = ["receiver", "phone", "email", "city", "street", "building", "payment", "promo"]
         widgets = {
             "receiver": forms.TextInput(
                 attrs={

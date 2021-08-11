@@ -36,6 +36,12 @@ class Cart(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     is_bought = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.product.name
+
+    def price(self):
+        return self.product.price
+
 
 PAYMENT_CHOICES = [
     ('COD', 'Cash on delivery'),
@@ -45,8 +51,6 @@ PAYMENT_CHOICES = [
 
 
 class Orders(models.Model):
-    items = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    total = models.IntegerField()
     receiver = models.CharField(max_length=100)
     phone = models.IntegerField()
     email = models.EmailField()
@@ -55,6 +59,7 @@ class Orders(models.Model):
     building = models.CharField(max_length=100)
     payment = models.CharField(max_length=20, choices=PAYMENT_CHOICES)
     promo = models.CharField(max_length=100)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
 
 

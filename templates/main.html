@@ -46,6 +46,10 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
     <![endif]-->
 </head>
 
@@ -141,15 +145,13 @@
     <div class="toplinks">
         {% if user.full_name %}
             <a href="{% url 'accounts:logout' %}" class="ion-log-out"> Log out</a>
-            <a href="{% url 'accounts:register' %}" class="ion-person">
-                {{ user.full_name }}</a
-            >
+            <a href="{% url 'accounts:register' %}">{{ user.full_name }}</a>
             <a href="./favorites/" class="ion-ios-heart"> Favorites </a>
         {% else %}
             <a href="{% url 'accounts:register' %}" class="ion-person"> Registration</a>
             <a href="{% url 'accounts:login' %}" class="ion-unlocked"> Sign In</a>
         {% endif %}
-        <a href="tel:+80005554465" class="hidden-xs">
+        <a href="tel:+977014993306" class="hidden-xs">
             <i class="ion-android-call"></i> 01-4993306
         </a>
     </div>
@@ -165,8 +167,10 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="./"> Unistore</a>
-                <a class="navbar-brand pull-right hidden-sm hidden-md hidden-lg" href="#open-cart"> <i
-                        class="ion-bag"></i>{{ cart|length }}</a>
+                {% if user.full_name %}
+                    <a class="navbar-brand pull-right hidden-sm hidden-md hidden-lg" href="#open-cart"> <i
+                            class="ion-bag"></i>{{ cart|length }}</a>
+                {% endif %}
             </div>
 
             <div id="navbar" class="navbar-collapse collapse">
@@ -206,7 +210,8 @@
         </div><!--/.container-fluid -->
     </nav>
 {% endblock %}
-{% block content %}{% endblock %}
+{% block content %}
+{% endblock %}
 {% block footer %}
     <footer>
         <div class="about">
@@ -497,11 +502,105 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modal -->
+    <div class="modal fade" id="Modal-SignIn" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true"><i class="ion-android-close"></i></span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <h2 class="modal-title text-center">Sign In</h2>
+                                <br>
+
+                                <form class="signin" action="index.php" method="post">
+                                    <input type="email" name="email" value="" placeholder="E-mail" required=""
+                                           class="form-control"/>
+                                    <br>
+                                    <input type="password" name="password" value="" placeholder="Password" required=""
+                                           class="form-control"/>
+                                    <br>
+
+                                    <button type="submit" class="btn btn-primary">Ok</button>
+                                    <a href="#forgin-password" data-action="Forgot-Password">Password recovery ></a>
+                                </form>
+                                <br>
+
+                                <div class="social-login">
+                                    <div class="or"><p>OR</p></div>
+                                    <a href="#"><i class="icon" data-src="../assets/img/icons/facebook.svg"></i></a>
+                                    <p>via</p>
+                                    <a href="#"><i class="icon" data-src="../assets/img/icons/google-plus.svg"></i></a>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Modal-Registration" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true"><i class="ion-android-close"></i></span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <h2 class="modal-title text-center">Registration</h2>
+                                <br>
+
+                                <form class="join" action="index.php" method="post">
+                                    <input type="text" name="name" value="" placeholder="Name" required=""
+                                           class="form-control"/>
+                                    <br>
+
+                                    <input type="email" name="email" value="" placeholder="E-mail" required=""
+                                           class="form-control"/>
+                                    <br>
+
+                                    <input type="password" name="password" value="" placeholder="Password" required=""
+                                           class="form-control"/>
+                                    <br>
+
+                                    <input type="text" name="confirm" value="" placeholder="Password again" required=""
+                                           class="form-control"/>
+                                    <br>
+
+                                    <button type="submit" class="btn btn-primary btn-sm">Ok</button> &nbsp;&nbsp;
+                                    <a href="#">Terms ></a>
+
+                                    <br><br>
+                                    <p>
+                                        By creating an account you will be able to shop faster, be up to date on an
+                                        order's status, and keep track of the orders you have previously made.
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 {% block plugins %}
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{% static 'assets/js/jquery-latest.min.js' %}"></script>
-
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script
             type="text/javascript"
@@ -538,6 +637,17 @@
             src="{% static 'assets/js/jquery.ui.touch-punch.js' %}"
     ></script>
 
+    <script text="javascript">
+        setTimeout(fade_out, 3000);
+
+        function fade_out() {
+            $(".messages").fadeOut().empty();
+        }
+    </script>
+    <script
+            type="text/javascript"
+            src="{% static 'assets/js/cart.js' %}"
+    ></script>
 {% endblock %}
 </body>
 </html>

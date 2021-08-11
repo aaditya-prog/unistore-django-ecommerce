@@ -34,5 +34,4 @@ class ProductAdmin(admin.ModelAdmin):
         "building",
         "payment",
         "promo",
-        "user",
     )

@@ -40,7 +40,7 @@
                                 <form method="POST" enctype="multipart/form-data" novalidate>
                                     {% csrf_token %}
                                     <div class="card-body">
-                                        {{form|crispy}}
+                                        {{ form|crispy }}
                                         <br>
                                         <input class="btn btn-warning" type="submit" value="Update">
 
@@ -49,7 +49,10 @@
 
                                 </form>
                                 {% for message in messages %}
-                                    <div class=" alert alert-{{ message.tags }} mt-2" role="alert">{{ message }}</div>
+                                    <div class="messages">
+                                        <div class=" alert alert-{{ message.tags }} mt-2"
+                                             role="alert">{{ message }}</div>
+                                    </div>
                                 {% endfor %}
                             </div>
                         </div>
@@ -87,7 +90,7 @@
         });
     </script>
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-  <script>tinymce.init({selector:'textarea'});</script>
+    <script>tinymce.init({selector: 'textarea'});</script>
 {% endblock addjquery %}
 </body>
 </html>

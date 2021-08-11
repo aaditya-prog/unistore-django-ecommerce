@@ -8,6 +8,12 @@
     <title>Order Testing</title>
 </head>
 <body>
-{{  }}
+<div><p>{% for order in order %}
+
+    {{ order.items.price }}
+    {{ order.phone }}
+{% endfor %}</p></div>
+
+
 </body>
 </html>

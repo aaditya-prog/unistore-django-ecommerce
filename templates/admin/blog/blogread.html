@@ -63,7 +63,9 @@
                                     <h4 class="text-center alert alert-warning">No Blogs Found</h4>
                                 {% endif %}
                                 {% for message in messages %}
-                                    <div class="alert alert-{{ message.tags }} mt-2" role="alert">{{ message }}</div>
+                                    <div class="messages">
+                                        <div class="alert alert-{{ message.tags }} mt-2" role="alert">{{ message }}</div>
+                                    </div>
                                 {% endfor %}
                             </div>
                             <!-- /.card-body -->

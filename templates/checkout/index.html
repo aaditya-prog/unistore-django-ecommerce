@@ -3,165 +3,176 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
-<hr class="offset-top">
+    <hr class="offset-top">
 
-<div class="white">
-    <div class="container checkout">
-        <h4>Checkout order</h4>
-        <hr class="offset-sm md-1">
+    <div class="white">
+        <div class="container checkout">
+            <h4>Checkout order</h4>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="messages">
+                        <div class="alert alert-{{ message.tags }} mt-2" role="alert">
+                            <p class="ion-android-notifications"> {{ message }}</p></div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <hr class="offset-sm md-1">
+        </div>
     </div>
-</div>
-<hr class="offset-md">
+    <hr class="offset-md">
 
-<div class="container checkout">
-    <form action="index.html" method="post">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-md-7">
-                <div class="row group">
-                    <div class="col-sm-4"><h2 class="h4">Receiver</h2></div>
-                    <div class="col-sm-8">{{ form.receiver }}</div>
-                </div>
+    <div class="container checkout">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="row group">
+                        <div class="col-sm-4"><h2 class="h4">Receiver</h2></div>
+                        <div class="col-sm-8">{{ form.receiver }}</div>
+                    </div>
 
-                <div class="row group">
-                    <div class="col-sm-4"><h2 class="h4">Phone</h2></div>
-                    <div class="col-sm-8">{{ form.phone }}</div>
-                </div>
+                    <div class="row group">
+                        <div class="col-sm-4"><h2 class="h4">Phone</h2></div>
+                        <div class="col-sm-8">{{ form.phone }}</div>
+                    </div>
 
-                <div class="row group">
-                    <div class="col-sm-4"><h2 class="h4">E-mail</h2></div>
-                    <div class="col-sm-8">{{ form.email }}</div>
-                </div>
+                    <div class="row group">
+                        <div class="col-sm-4"><h2 class="h4">E-mail</h2></div>
+                        <div class="col-sm-8">{{ form.email }}</div>
+                    </div>
 
-                <br><br>
-                <div class="">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <h2 class="h4">City</h2>
-                            {{ form.city }}
-                        </div>
-                        <div class="col-sm-4">
-                            <h2 class="h4">Street</h2>
-                            {{ form.street }}
-                        </div>
-                        <div class="col-sm-4">
-                            <h2 class="h4">Building</h2>
-                            {{ form.building }}
+                    <br><br>
+                    <div class="">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h2 class="h4">City</h2>
+                                {{ form.city }}
+                            </div>
+                            <div class="col-sm-4">
+                                <h2 class="h4">Street</h2>
+                                {{ form.street }}
+                            </div>
+                            <div class="col-sm-4">
+                                <h2 class="h4">Building</h2>
+                                {{ form.building }}
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br>
+                    <br>
 
-                <div class="row group">
-                    <div class="col-sm-4"><h2 class="h4">Payment</h2></div>
-                    <div class="col-sm-8">
-                        <div class="group-select justify" tabindex='1'>
-                            {{ form.payment }}
-                            <div class="arrow bold"><i class="ion-chevron-down"></i></div>
+                    <div class="row group">
+                        <div class="col-sm-4"><h2 class="h4">Payment</h2></div>
+                        <div class="col-sm-8">
+                            <div class="group-select justify" tabindex='1'>
+                                {{ form.payment }}
+                                <div class="arrow bold"><i class="ion-chevron-down"></i></div>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="row group">
+                        <div class="col-sm-4"><h2 class="h4">Promo code</h2></div>
+                        <div class="col-sm-8"><input type="text" class="form-control" name="promo" value="" required=""
+                                                     placeholder=""/></div>
+                    </div>
+
+
+                    <hr class="offset-lg visible-xs visible-sm">
+                    <hr class="offset-lg visible-xs">
                 </div>
 
-                <div class="row group">
-                    <div class="col-sm-4"><h2 class="h4">Promo code</h2></div>
-                    <div class="col-sm-8"><input type="text" class="form-control" name="promo" value="" required=""
-                                                 placeholder=""/></div>
-                </div>
-
-
-                <hr class="offset-lg visible-xs visible-sm">
-                <hr class="offset-lg visible-xs">
-            </div>
-
-            <div class="col-md-5 white">
-                <hr class="offset-md visible-xs visible-sm">
-                <div class="checkout-cart">
-                    <div class="content">
-                        <div class="media">
-                            {% for item in page_obj %}
-                                <div class="media">
-                                    <div class="media-left">
-                                        <a href="#">
-                                            <img class="media-object" src="{{ item.product.image.url }}"
-                                                 alt="{{ item.product.name }} image"/>
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h2 class="h4 media-heading">{{ item.product.name }}</h2>
-                                        <label>{{ item.product.category }}</label>
-                                        <p class="price"> ${{ item.product.price }}</p>
-                                    </div>
-                                    <div class="controls">
-                                        <div class="input-group">
-                              <span class="input-group-btn">
-                                <button class="btn btn-default btn-sm" type="button" data-action="minus"><i
-                                        class="ion-minus-round"></i></button>
-                              </span>
-                                            <input type="text" class="form-control input-sm" placeholder="Qty" value="1"
-                                                   readonly="">
+                <div class="col-md-5 white">
+                    <hr class="offset-md visible-xs visible-sm">
+                    <div class="checkout-cart">
+                        <div class="content">
+                            <div class="media">
+                                {% for item in page_obj %}
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="#">
+                                                <img class="media-object" src="{{ item.product.image.url }}"
+                                                     alt="{{ item.product.name }} image"/>
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h2 class="h4 media-heading">{{ item.product.name }}</h2>
+                                            <label>{{ item.product.category }}</label>
+                                            <p class="price cart-price"> ${{ item.product.price }}</p>
+                                        </div>
+                                        <div class="controls">
+                                            <div class="input-group">
                                             <span class="input-group-btn">
-                                <button class="btn btn-default btn-sm" type="button" data-action="plus"><i
-                                        class="ion-plus-round"></i></button>
-                              </span>
-                                        </div><!-- /input-group -->
+                                              <button class="btn btn-default btn-sm" type="button"
+                                                      data-action="minus"><i class="ion-minus-round"></i></button>
+                                            </span>
+                                                <input type="text" class="form-control input-sm" placeholder="Qty"
+                                                       value="1" readonly="">
+                                                <span class="input-group-btn">
+                                              <button class="btn btn-default btn-sm" type="button" data-action="plus"><i
+                                                      class="ion-plus-round"></i></button>
+                                            </span>
 
-                                        <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
+                                            </div><!-- /input-group -->
+
+                                            <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
+                                        </div>
                                     </div>
-                                </div>
-                            {% endfor %}
-                            <nav>
-                                <ul class="pagination">
-                                    <li>
-                                        {% if page_obj.has_previous %}
-                                            <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                {% endfor %}
+                                <nav>
+                                    <ul class="pagination">
+                                        <li>
+                                            {% if page_obj.has_previous %}
+                                                <a href="?page={{ page_obj.previous_page_number }}"
+                                                   aria-label="Previous">
                   <span aria-hidden="true"
                   ><i class="ion-ios-arrow-left"></i
                   ></span>
-                                            </a>
-                                        {% endif %}
-                                    </li>
-                                    <li class="active"><a href="">{{ page_obj.number }}</a></li>
-                                    {% comment %} <li><a href="?page=2">2</a></li>
+                                                </a>
+                                            {% endif %}
+                                        </li>
+                                        <li class="active"><a href="">{{ page_obj.number }}</a></li>
+                                        {% comment %} <li><a href="?page=2">2</a></li>
               <li><a href="?page=3">3</a></li>
               <li><a href="#">10</a></li> {% endcomment %}
-                                    <li>
-                                        {% if page_obj.has_next %}
-                                            <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                        <li>
+                                            {% if page_obj.has_next %}
+                                                <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
                   <span aria-hidden="true"
                   ><i class="ion-ios-arrow-right"></i
                   ></span>
-                                            </a>
-                                        {% endif %}
-                                    </li>
-                                </ul>
-                            </nav>
+                                                </a>
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
+                        <hr class="offset-md visible-xs visible-sm">
                     </div>
-                    <hr class="offset-md visible-xs visible-sm">
-                </div>
 
-                <hr class="offset-lg hidden-xs">
+                    <hr class="offset-lg hidden-xs">
 
-                <div class="col-sm-12 white">
-                    <hr class="offset-md">
-                    <div class="row">
-                        <div class="col-xs-6 col-md-4">
-                            <h3 class="h5 no-margin">Sub total: ${{ total }}</h3>
-                            <h3 class="h4 no-margin">Total: ${{ total }}</h3>
+                    <div class="col-sm-12 white">
+                        <hr class="offset-md">
+                        <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                                <h3 class="h5 no-margin">Sub total: ${{ total }}</h3>
+                                <h3 class="h4 no-margin">Total: ${{ total }}</h3>
+                            </div>
+                            <div class="col-md-4 hidden-xs">
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                <input class="btn btn-primary pull-right" type="submit" value="Confirm Order">
+                            </div>
                         </div>
-                        <div class="col-md-4 hidden-xs">
-                        </div>
-                        <div class="col-xs-6 col-md-4">
-                            <button class="btn btn-primary pull-right" type="submit">Confirm order</button>
-                        </div>
+                        <hr class="offset-md">
                     </div>
-                    <hr class="offset-md">
+
                 </div>
+        </form>
+    </div>
 
-            </div>
-    </form>
-</div>
+    <hr class="offset-lg">
+    <hr class="offset-sm">
 
-<hr class="offset-lg">
-<hr class="offset-sm">
 {% endblock %}

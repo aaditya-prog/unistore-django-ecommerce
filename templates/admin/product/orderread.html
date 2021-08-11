@@ -28,37 +28,69 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    {% if data %}
-                                        {% for dt in data %}
+
                                             <table class="table table-bordered table-hover">
                                                 <!--Table head-->
                                                 <thead>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th class="th-lg">Order Receiver</th>
-                                                    <th class="th-lg">Order Address</th>
-                                                    <th class="th-lg">Order Placed by</th>
+                                                    <th class="th-lg">Item Details</th>
+                                                    <th class="th-lg">Order Details</th>
+                                                    <th class="th-lg">Delivery Location</th>
                                                 </tr>
                                                 </thead>
                                                 <!--Table head-->
 
                                                 <!--Table body-->
                                                 <tbody>
+                                                {% if data %}
+                                                {% for dt in data %}
                                                 <tr>
                                                     <td>{{ dt.id }}</td>
                                                     <td>
-                                                        {{ dt.receiver }}<br/>{{ dt.email }}<br/>{{ dt.phone }}<br/>Payment: {{ dt.payment }}</td>
+                                                        <div class="mt-2 text-center">
+                                                            <p>
+                                                                <a class="btn btn-outline-primary"
+                                                                   data-toggle="collapse"
+                                                                   href="#collapseExample" role="button"
+                                                                   aria-expanded="false"
+                                                                   aria-controls="collapseExample">
+                                                                    View Items
+                                                                </a>
+                                                            </p>
+                                                            <div class="collapse" id="collapseExample">
+                                                                <div class="card card-body">
+                                                                    {% for item in items %}
+                                                                        <table>
+                                                                            <tbody>
+                                                                            <td>{{ item.product.name }}</td>
+                                                                            <td>${{ item.product.price }}</td>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    {% endfor %}
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                Total= ${{ total }}
+                                                            </div>
+
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        {{ dt.receiver }}<br/>{{ dt.email }}<br/>{{ dt.phone }}<br/>Payment: {{ dt.payment }}
+                                                    </td>
                                                     <td>{{ dt.building }},<br/>
                                                         {{ dt.street }},<br/>
                                                         {{ dt.city }}.
                                                     </td>
-                                                     <td></td>
-                                                    <td></td>
+
                                                 </tr>
+                                                 {% endfor %}
                                                 </tbody>
                                                 <!--Table body-->
                                             </table>
-                                        {% endfor %}
+
                                         <!--Bottom Table UI-->
                                         <div class="d-flex justify-content-center">
                                             <!--Pagination -->
@@ -111,7 +143,6 @@
                 </div>
                 <!-- /.col -->
         </div>
-        <!-- /.row -->
     </div>
 
 

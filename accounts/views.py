@@ -12,17 +12,21 @@ from store.models import Product, Category
 from blog.models import Blog
 from django.core.mail import send_mail, BadHeaderError
 
+
 # Create your views here.
 def index(request):
-    products = None
+    # products = None
     # request.session.get('cart').clear()
     # products = Product.objects.filter(category="Desktop")[:4]
     blogs = Blog.objects.all()[:2]
-    data = {}
+    desktops = Product.objects.filter(category=1).order_by("-id")[:4]
+    laptops = Product.objects.filter(category=2).order_by("-id")[:4]
+    hybrids = Product.objects.filter(category=3).order_by("-id")[:3]
+    tablets = Product.objects.filter(category=4).order_by("-id")[:4]
+    context = {"blogs": blogs, "desktops": desktops, "laptops": laptops, "tablets": tablets, "hybrids": hybrids}
     # data["products"] = products
     # data["category"] = category
-    data["blogs"] = blogs
-    return render(request, "home/index.html", data)
+    return render(request, "home/index.html", context)
 
 
 def register(request):
@@ -58,7 +62,7 @@ def user_login(request):
                 if user.admin:
                     return redirect("staff:userread")
                 if not user.admin:
-                    return redirect("home:index")
+                    return redirect("accounts:index")
 
     else:
         fm = AuthenticationForm()
@@ -67,7 +71,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect("home:index")
+    return redirect("accounts:index")
 
 
 def contact(request):
@@ -81,6 +85,6 @@ def contact(request):
                 send_mail(subject, message, from_email, ["aadietya.me.d@gmail.com"])
             except BadHeaderError:
                 return HttpResponse("Invalid header found.")
-            return redirect("home:index")
+            return redirect("accounts:index")
     form = ContactForm()
     return render(request, "contacts/index.html", {"form": form})

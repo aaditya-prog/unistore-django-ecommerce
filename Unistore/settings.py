@@ -15,6 +15,8 @@ import os
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.contrib.messages import constants as messages
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -140,6 +142,7 @@ EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+MESSAGE_TAGS = {messages.ERROR: "danger"}
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 DJANGORESIZED_DEFAULT_QUALITY = 100

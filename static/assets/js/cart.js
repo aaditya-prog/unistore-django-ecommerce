@@ -1,33 +1,22 @@
-var updateBtns = document.getElementsByClassName("update-cart");
-for (var i = 0; i < updateBtns.length; i++) {
-  updateBtns[i].addEventListener("click", function () {
-    var productId = this.dataset.product;
-    var action = this.dataset.action;
-    console.log("productId:", productId, "action:", action);
-    console.log("USER:", user);
-    if (user === "AnonymousUser") {
-      console.log("Not logged in");
-    } else {
-      updateUserOrder(productId, action);
-    }
-  });
-}
-
-function updateUserOrder(productId, action) {
-  console.log("User is logged in, sending data");
-  var url = "update-item";
-  fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-CSRFToken": csrftoken,
-    },
-    body: JSON.stringify({'productId': productId, 'action': action }),
-  })
-    .then((response) => {
-      return response.json()
-    })
-    .then((data) => {
-      console.log("data:", data)
+$(document).ready(function () {
+    $('.item-qty').change(function () {
+        var cartRows = document.getElementsByClassName("cart-border");
+        total_price = 0;
+        for (var i = 0; i < cartRows.length; i++) {
+            total = 0
+            total_quantity = 0
+            var cartRow = cartRows[i]
+            var priceElement = cartRow.getElementsByClassName("cart-price")
+            console.log(priceElement)
+            var quantityElement = cartRow.getElementsByClassName('item-qty')[0]
+            console.log(quantityElement)
+            var price = parseFloat(priceElement.innerText.replace('$', ''))
+            var quantity = quantityElement.value
+            total_price += (price * quantity)
+            console.log(cartRow)
+            console.log(price)
+            console.log(quantity)
+        }
+        document.getElementById("total_price").innerHTML = "&nbsp;" + total_price;
     });
-}
+});

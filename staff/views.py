@@ -3,7 +3,7 @@ from accounts.forms import UserAddForm, RegisterForm
 from accounts.models import User
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
-from store.models import Category, Product, Orders
+from store.models import Category, Product, Orders, Cart
 from .forms import ProductForm, CategoryForm, BlogForm
 from blog.models import Blog
 from accounts.decorators import login_excluded, admin_access
@@ -46,8 +46,7 @@ def delete_user(request, id):
     if request.method == "POST":
         data = User.objects.get(pk=id)
         data.delete()
-        return HttpResponseRedirect("/view-user")
-
+        return redirect("staff:userread")
 
 @login_required
 @admin_access("accounts:index")
@@ -79,7 +78,7 @@ def update_user(request, id):
 @admin_access("accounts:index")
 def logout(request):
     auth_logout(request)
-    return render(request, "home/index.html")
+    return render(request, "accounts/index.html")
 
 
 @login_required
@@ -254,4 +253,13 @@ def update_blog(request, id):
 @admin_access("accounts:index")
 def Order(request):
     orderdata = Orders.objects.all()
-    return render(request, "admin/product/orderread.html", {"data": orderdata})
+    items = Cart.objects.filter(is_bought=True).order_by("id")
+    total = 0
+    for item in items:
+        total = total + int(item.product.price)
+    context = {
+        "data": orderdata,
+        "items": items,
+        "total": total
+    }
+    return render(request, "admin/product/orderread.html", context)
