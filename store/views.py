@@ -107,5 +107,3 @@ def checkout(request):
             "form": frm
             }
     return render(request, "checkout/index.html", data)
-
-

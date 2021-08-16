@@ -59,7 +59,3 @@ class Orders(models.Model):
     building = models.CharField(max_length=100)
     payment = models.CharField(max_length=20, choices=PAYMENT_CHOICES)
     promo = models.CharField(max_length=100)
-
-
-
-

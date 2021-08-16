@@ -2,7 +2,7 @@ from unicodedata import category
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, HttpResponse
-from .forms import RegisterForm, ContactForm
+from .forms import RegisterForm, ContactForm, LoginForm
 from .models import User
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
@@ -10,7 +10,62 @@ from django.contrib.auth import authenticate, login, logout
 from .decorators import login_excluded, admin_access
 from store.models import Product, Category
 from blog.models import Blog
-from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import send_mail, BadHeaderError, EmailMessage
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from .utils import generate_token
+from django.utils.encoding import (
+    DjangoUnicodeDecodeError,
+    force_bytes,
+    force_str,
+    force_text,
+)
+from django.urls import reverse
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
+
+
+# function to send an activation email
+def send_activation_email(user, request):
+    current_site = get_current_site(request)
+    email_subject = "Complete your registration"
+    email_body = render_to_string(
+        "accounts/activate.html",
+        {
+            "user": user,
+            "domain": current_site,
+            "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+            "token": generate_token.make_token(user),
+        },
+    )
+
+    email = EmailMessage(
+        subject=email_subject,
+        body=email_body,
+        to=[
+            user.email,
+        ],
+    )
+
+    email.send()
+
+
+def activate_user(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+
+    except Exception as e:
+        user = None
+
+    if user and generate_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        messages.success(request, "Email verified, login to continue.")
+        return redirect(reverse("accounts:login"))
+    else:
+        return render(request, "accounts/activate-failed.html", {"user": user})
 
 
 # Create your views here.
@@ -26,6 +81,7 @@ def index(request):
     context = {"blogs": blogs, "desktops": desktops, "laptops": laptops, "tablets": tablets, "hybrids": hybrids}
     # data["products"] = products
     # data["category"] = category
+
     return render(request, "home/index.html", context)
 
 
@@ -37,11 +93,13 @@ def register(request):
             email = fm.cleaned_data["email"]
             password = fm.cleaned_data["password"]
             user = User(full_name=name, email=email, password=password)
+            user.is_active = False
             user.set_password(password)
             user.save()
-            messages.success(request, "User registration Successful")
+            send_activation_email(user, request)
+            messages.success(request, "Registration Successful, verify your email to login.")
         else:
-            messages.error(request, "Registration failed")
+            messages.error(request, "Registration failed, try again.")
     else:
         fm = RegisterForm()
     return render(request, "home/register.html", {"form": fm})
@@ -50,7 +108,7 @@ def register(request):
 @login_excluded("accounts:index")
 def user_login(request):
     if request.method == "POST":
-        fm = AuthenticationForm(request=request, data=request.POST)
+        fm = LoginForm(request=request, data=request.POST)
         if fm.is_valid():
             un = fm.cleaned_data["username"]
             pw = fm.cleaned_data["password"]
@@ -65,7 +123,7 @@ def user_login(request):
                     return redirect("accounts:index")
 
     else:
-        fm = AuthenticationForm()
+        fm = LoginForm()
     return render(request, "home/login.html", {"form": fm})
 
 

@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from .models import User
-
+from django.contrib.auth.forms import AuthenticationForm
 
 class RegisterForm(forms.ModelForm):
     class Meta:
@@ -49,6 +49,26 @@ class RegisterForm(forms.ModelForm):
                 }
             ),
         }
+
+
+class LoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+
+    username = forms.EmailField(widget=forms.TextInput(
+        attrs={'class': 'form-control',
+               'placeholder': 'Enter your email'
+               }
+    ))
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your password',
+        }
+    ))
+
+
+
 
 
 class UserAddForm(forms.ModelForm):
@@ -104,6 +124,7 @@ class UserAddForm(forms.ModelForm):
                 }
             ),
         }
+
 
 
 class ContactForm(forms.Form):
