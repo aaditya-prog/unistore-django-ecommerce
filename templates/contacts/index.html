@@ -2,35 +2,35 @@
 {% load static %}
 {% block title %}Contact{% endblock %}
 {% block content %}
-    <hr class="offset-top" />
+    <hr class="offset-top"/>
 
     <div class="gray">
-      <hr class="offset-lg" />
+        <hr class="offset-lg"/>
 
-      <div class="container align-center">
-        <h1 class="upp">Need our help?</h1>
-        <p>Please insert question to a form below.</p>
-        <hr class="offset-md" />
+        <div class="container align-center">
+            <h1 class="upp">Need our help?</h1>
+            <p>Please insert question to a form below.</p>
+            <hr class="offset-md"/>
 
-        {%load crispy_forms_tags%}
-        <div class="row">
-          <div class="col-sm-4 col-sm-offset-4">
-            <form class="contact" method="post">
-              {% csrf_token %}
-              {{form|crispy}}
-              <br />
-              <input
-                type="submit"
-                value="Send question"
-                class="btn btn-primary justify"
-              />
-            </form>
-          </div>
+            {% load crispy_forms_tags %}
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <form class="contact" method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <br/>
+                        <input
+                                type="submit"
+                                value="Send question"
+                                class="btn btn-primary justify"
+                        />
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
-      <br />
+        <br/>
     </div>
 
-    <hr class="offset-lg" />
-    <hr class="offset-sm" />
-    {% endblock %}
+    <hr class="offset-lg"/>
+    <hr class="offset-sm"/>
+{% endblock %}

@@ -5,10 +5,7 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
-    dependencies = [
-        ("blog", "0001_initial"),
-    ]
+    dependencies = [("blog", "0001_initial")]
 
     operations = [
         migrations.AlterField(
@@ -17,5 +14,5 @@ class Migration(migrations.Migration):
             field=ckeditor_uploader.fields.RichTextUploadingField(
                 blank=True, null=True
             ),
-        ),
+        )
     ]

@@ -4,22 +4,10 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
-    dependencies = [
-        ('store', '0005_alter_orders_user'),
-    ]
+    dependencies = [("store", "0005_alter_orders_user")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='orders',
-            name='items',
-        ),
-        migrations.RemoveField(
-            model_name='orders',
-            name='total',
-        ),
-        migrations.RemoveField(
-            model_name='orders',
-            name='user',
-        ),
+        migrations.RemoveField(model_name="orders", name="items"),
+        migrations.RemoveField(model_name="orders", name="total"),
+        migrations.RemoveField(model_name="orders", name="user"),
     ]

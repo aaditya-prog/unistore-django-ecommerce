@@ -45,10 +45,12 @@
                                                 <td>
                                                     <a href="{% url 'staff:update' usr.id %}"
                                                        class="btn btn-warning btn-sm">Update</a>
-                                                    <form action="{% url 'staff:delete' usr.id %}" method="POST" class="d-inline">
-                                                    {% csrf_token %}
+                                                    <form action="{% url 'staff:delete' usr.id %}" method="POST"
+                                                          class="d-inline">
+                                                        {% csrf_token %}
 
-                                                    <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                                                        <input type="submit" value="Delete"
+                                                               class="btn btn-danger btn-sm">
                                                     </form>
 
                                                 </td>

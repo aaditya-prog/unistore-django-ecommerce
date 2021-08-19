@@ -2,96 +2,96 @@
 {% load static %}
 {% block title %}Blog{% endblock %}
 {% block content %}
-    <hr class="offset-top" />
+    <hr class="offset-top"/>
     <div class="tags">
-      <div class="container">
-        <p>Search by tags</p>
-        <div class="btn-group" data-toggle="buttons">
-          <label class="btn btn-default btn-sm active">
-            <input type="radio" name="options" id="option1" checked /> All items
-          </label>
-          <label class="btn btn-default btn-sm">
-            <input type="radio" name="options" id="option2" /> Newest
-          </label>
-          <label class="btn btn-default btn-sm">
-            <input type="radio" name="options" id="option3" /> Popular
-          </label>
-          <label class="btn btn-default btn-sm">
-            <input type="radio" name="options" id="option4" /> News
-          </label>
-          <label class="btn btn-default btn-sm">
-            <input type="radio" name="options" id="option5" /> Articles
-          </label>
-          <label class="btn btn-default btn-sm">
-            <input type="radio" name="options" id="option6" /> Reviews
-          </label>
+        <div class="container">
+            <p>Search by tags</p>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default btn-sm active">
+                    <input type="radio" name="options" id="option1" checked/> All items
+                </label>
+                <label class="btn btn-default btn-sm">
+                    <input type="radio" name="options" id="option2"/> Newest
+                </label>
+                <label class="btn btn-default btn-sm">
+                    <input type="radio" name="options" id="option3"/> Popular
+                </label>
+                <label class="btn btn-default btn-sm">
+                    <input type="radio" name="options" id="option4"/> News
+                </label>
+                <label class="btn btn-default btn-sm">
+                    <input type="radio" name="options" id="option5"/> Articles
+                </label>
+                <label class="btn btn-default btn-sm">
+                    <input type="radio" name="options" id="option6"/> Reviews
+                </label>
+            </div>
         </div>
-      </div>
     </div>
-    <hr class="offset-md" />
+    <hr class="offset-md"/>
 
     <div class="blog">
-      <div class="container">
-        <div class="row">
-          {% for blog in page_obj %}
-          <div class="col-sm-6 col-md-6 item">
-            <div class="body">
-              <a href="{{blog.url}}" target="_blank" class="view"
-                ><i class="ion-ios-book-outline"></i
-              ></a>
+        <div class="container">
+            <div class="row">
+                {% for blog in page_obj %}
+                    <div class="col-sm-6 col-md-6 item">
+                        <div class="body">
+                            <a href="{{ blog.url }}" target="_blank" class="view"
+                            ><i class="ion-ios-book-outline"></i
+                            ></a>
 
-              <a href="" target="_blank">
-                <img src="{{blog.image.url}}" alt="Blog Post" />
-              </a>
+                            <a href="" target="_blank">
+                                <img src="{{ blog.image.url }}" alt="Blog Post"/>
+                            </a>
 
-              <div class="caption">
-                <h1 class="h3">{{blog.title}}</h1>
-                <label>{{blog.date}}</label>
-                <hr class="offset-sm" />
+                            <div class="caption">
+                                <h1 class="h3">{{ blog.title }}</h1>
+                                <label>{{ blog.date }}</label>
+                                <hr class="offset-sm"/>
 
-                <p>{{blog.description|safe}}</p>
-                <hr class="offset-sm" />
+                                <p>{{ blog.description|safe }}</p>
+                                <hr class="offset-sm"/>
 
-                <a href="{{blog.url}}" target="_blank">
-                  Read full article <i class="ion-ios-arrow-right"></i>
-                </a>
-              </div>
+                                <a href="{{ blog.url }}" target="_blank">
+                                    Read full article <i class="ion-ios-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-          </div>
-          {% endfor %}
-        </div>
 
-        <nav>
-          <ul class="pagination">
-            <li>
-              {% if page_obj.has_previous %}
-              <a
-                href="?page={{page_obj.previous_page_number}}"
-                aria-label="Previous"
-              >
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        {% if page_obj.has_previous %}
+                            <a
+                                    href="?page={{ page_obj.previous_page_number }}"
+                                    aria-label="Previous"
+                            >
                 <span aria-hidden="true"
-                  ><i class="ion-ios-arrow-left"></i
+                ><i class="ion-ios-arrow-left"></i
                 ></span>
-              </a>
-              {% endif %}
-            </li>
-            <li class="active"><a href="">{{page_obj.number}}</a></li>
-            {% comment %}
+                            </a>
+                        {% endif %}
+                    </li>
+                    <li class="active"><a href="">{{ page_obj.number }}</a></li>
+                    {% comment %}
             <li><a href="?page=2">2</a></li>
             <li><a href="?page=3">3</a></li>
             <li><a href="#">10</a></li>
             {% endcomment %}
-            <li>
-              {% if page_obj.has_next %}
-              <a href="?page={{page_obj.next_page_number}}" aria-label="Next">
+                    <li>
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
                 <span aria-hidden="true"
-                  ><i class="ion-ios-arrow-right"></i
+                ><i class="ion-ios-arrow-right"></i
                 ></span>
-              </a>
-              {% endif %}
-            </li>
-          </ul>
-        </nav>
-      </div>
+                            </a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 {% endblock %}

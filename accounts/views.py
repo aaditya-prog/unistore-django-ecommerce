@@ -40,13 +40,7 @@ def send_activation_email(user, request):
         },
     )
 
-    email = EmailMessage(
-        subject=email_subject,
-        body=email_body,
-        to=[
-            user.email,
-        ],
-    )
+    email = EmailMessage(subject=email_subject, body=email_body, to=[user.email])
 
     email.send()
 
@@ -68,7 +62,6 @@ def activate_user(request, uidb64, token):
         return render(request, "accounts/activate-failed.html", {"user": user})
 
 
-# Create your views here.
 def index(request):
     # products = None
     # request.session.get('cart').clear()
@@ -78,13 +71,20 @@ def index(request):
     laptops = Product.objects.filter(category=2).order_by("-id")[:4]
     hybrids = Product.objects.filter(category=3).order_by("-id")[:3]
     tablets = Product.objects.filter(category=4).order_by("-id")[:4]
-    context = {"blogs": blogs, "desktops": desktops, "laptops": laptops, "tablets": tablets, "hybrids": hybrids}
+    context = {
+        "blogs": blogs,
+        "desktops": desktops,
+        "laptops": laptops,
+        "tablets": tablets,
+        "hybrids": hybrids,
+    }
     # data["products"] = products
     # data["category"] = category
 
     return render(request, "home/index.html", context)
 
 
+@login_excluded("accounts:index")
 def register(request):
     if request.method == "POST":
         fm = RegisterForm(request.POST)
@@ -97,7 +97,9 @@ def register(request):
             user.set_password(password)
             user.save()
             send_activation_email(user, request)
-            messages.success(request, "Registration Successful, verify your email to login.")
+            messages.success(
+                request, "Registration Successful, verify your email to login."
+            )
         else:
             messages.error(request, "Registration failed, try again.")
     else:

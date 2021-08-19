@@ -124,34 +124,34 @@
                     <!-- <img src="assets/img/carousel/ipadair2.jpg" alt="Apple Devices" title="Apple Devices" class="item-right hidden-xs"/> -->
 
                     div class="content">
-                        <div class="outside-content">
-                            <div class="inside-content">
-                                <div class="container align-right">
-                                    <h1 class="h3 colorful blue hidden-xs">
-                                        Luxury watches, business tablets and 3D touch: <br/>
-                                        How Apple plans to stay ahead in mobile.
-                                    </h1>
+                    <div class="outside-content">
+                        <div class="inside-content">
+                            <div class="container align-right">
+                                <h1 class="h3 colorful blue hidden-xs">
+                                    Luxury watches, business tablets and 3D touch: <br/>
+                                    How Apple plans to stay ahead in mobile.
+                                </h1>
 
-                                    <hr class="offset-sm"/>
-                                    <h2 class="h1 lg upp colorful blue">
-                                        Brand new day <br class="hidden-xs"/>
-                                        for business
-                                    </h2>
-                                    <hr class="offset-md"/>
-                                    <hr class="offset-md"/>
-                                    <a
-                                            href="{% url 'blog:index' %}"
-                                            rel="nofollow"
-                                            class="btn btn-primary btn-lg black"
-                                    >
-                                        View article
-                                    </a>
-                                </div>
+                                <hr class="offset-sm"/>
+                                <h2 class="h1 lg upp colorful blue">
+                                    Brand new day <br class="hidden-xs"/>
+                                    for business
+                                </h2>
+                                <hr class="offset-md"/>
+                                <hr class="offset-md"/>
+                                <a
+                                        href="{% url 'blog:index' %}"
+                                        rel="nofollow"
+                                        class="btn btn-primary btn-lg black"
+                                >
+                                    View article
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </header>
     <hr class="offset-lg"/>
     <hr class="offset-lg"/>
@@ -162,31 +162,31 @@
             <hr class="offset-lg"/>
             <div class="row">
                 {% for laptop in laptops %}
-                <div class="col-sm-6 col-md-3 product">
-                    <div class="body">
-                        <a href="#favorites" class="favorites" data-favorite="inactive"
-                        ><i class="ion-ios-heart-outline"></i
-                        ></a>
-                        <a href="./"
-                        ><img
-                                src="{{ laptop.image.url }}"
-                                alt="{{ laptop.name }}"
-                        /></a>
+                    <div class="col-sm-6 col-md-3 product">
+                        <div class="body">
+                            <a href="#favorites" class="favorites" data-favorite="inactive"
+                            ><i class="ion-ios-heart-outline"></i
+                            ></a>
+                            <a href="./"
+                            ><img
+                                    src="{{ laptop.image.url }}"
+                                    alt="{{ laptop.name }}"
+                            /></a>
 
-                        <div class="content align-center">
-                            <p class="price"> ${{ laptop.price }}</p>
-                            <h2 class="h3">{{ laptop.name }}</h2>
-                            <hr class="offset-sm"/>
+                            <div class="content align-center">
+                                <p class="price"> ${{ laptop.price }}</p>
+                                <h2 class="h3">{{ laptop.name }}</h2>
+                                <hr class="offset-sm"/>
 
-                            <button class="btn btn-link">
-                                <i class="ion-android-open"></i> Details
-                            </button>
-                            <button class="btn btn-primary btn-sm rounded">
-                                <i class="ion-bag"></i> Add to cart
-                            </button>
+                                <button class="btn btn-link">
+                                    <i class="ion-android-open"></i> Details
+                                </button>
+                                <button class="btn btn-primary btn-sm rounded">
+                                    <i class="ion-bag"></i> Add to cart
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
 
@@ -204,31 +204,31 @@
             <hr class="offset-lg"/>
             <div class="row">
                 {% for desktop in desktops %}
-                <div class="col-sm-6 col-md-3 product">
-                    <div class="body">
-                        <a href="#favorites" class="favorites" data-favorite="inactive"
-                        ><i class="ion-ios-heart-outline"></i
-                        ></a>
-                        <a href="./"
-                        ><img
-                                src="{{ desktop.image.url }}"
-                                alt="{{ desktop.name }}"
-                        /></a>
+                    <div class="col-sm-6 col-md-3 product">
+                        <div class="body">
+                            <a href="#favorites" class="favorites" data-favorite="inactive"
+                            ><i class="ion-ios-heart-outline"></i
+                            ></a>
+                            <a href="./"
+                            ><img
+                                    src="{{ desktop.image.url }}"
+                                    alt="{{ desktop.name }}"
+                            /></a>
 
-                        <div class="content align-center">
-                            <p class="price"> ${{ desktop.price }}</p>
-                            <h2 class="h3">{{ desktop.name }}</h2>
-                            <hr class="offset-sm"/>
+                            <div class="content align-center">
+                                <p class="price"> ${{ desktop.price }}</p>
+                                <h2 class="h3">{{ desktop.name }}</h2>
+                                <hr class="offset-sm"/>
 
-                            <button class="btn btn-link">
-                                <i class="ion-android-open"></i> Details
-                            </button>
-                            <button class="btn btn-primary btn-sm rounded">
-                                <i class="ion-bag"></i> Add to cart
-                            </button>
+                                <button class="btn btn-link">
+                                    <i class="ion-android-open"></i> Details
+                                </button>
+                                <button class="btn btn-primary btn-sm rounded">
+                                    <i class="ion-bag"></i> Add to cart
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
 
@@ -246,31 +246,31 @@
 
             <div class="row">
                 {% for hybrid in hybrids %}
-                <div class="col-sm-6 col-md-4 product">
-                    <div class="body">
-                        <a href="#favorites" class="favorites" data-favorite="inactive"
-                        ><i class="ion-ios-heart-outline"></i
-                        ></a>
-                        <a href="./"
-                        ><img
-                                src="{{ hybrid.image.url }}"
-                                alt="{{ hybrid.name }}"
-                        /></a>
+                    <div class="col-sm-6 col-md-4 product">
+                        <div class="body">
+                            <a href="#favorites" class="favorites" data-favorite="inactive"
+                            ><i class="ion-ios-heart-outline"></i
+                            ></a>
+                            <a href="./"
+                            ><img
+                                    src="{{ hybrid.image.url }}"
+                                    alt="{{ hybrid.name }}"
+                            /></a>
 
-                        <div class="content align-center">
-                            <p class="price">${{ hybrid.price }}</p>
-                            <h2 class="h3">{{ hybrid.name }}</h2>
-                            <hr class="offset-sm"/>
+                            <div class="content align-center">
+                                <p class="price">${{ hybrid.price }}</p>
+                                <h2 class="h3">{{ hybrid.name }}</h2>
+                                <hr class="offset-sm"/>
 
-                            <button class="btn btn-link">
-                                <i class="ion-android-open"></i> Details
-                            </button>
-                            <button class="btn btn-primary btn-sm rounded">
-                                <i class="ion-bag"></i> Add to cart
-                            </button>
+                                <button class="btn btn-link">
+                                    <i class="ion-android-open"></i> Details
+                                </button>
+                                <button class="btn btn-primary btn-sm rounded">
+                                    <i class="ion-bag"></i> Add to cart
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
             <div class="align-right align-center-xs">
@@ -287,31 +287,31 @@
 
             <div class="row">
                 {% for tablet in tablets %}
-                <div class="col-sm-6 col-md-4 product">
-                    <div class="body">
-                        <a href="#favorites" class="favorites" data-favorite="inactive"
-                        ><i class="ion-ios-heart-outline"></i
-                        ></a>
-                        <a href="./"
-                        ><img
-                                src="{{ tablet.image.url }}"
-                                alt="{{ tablet.name }}"
-                        /></a>
+                    <div class="col-sm-6 col-md-4 product">
+                        <div class="body">
+                            <a href="#favorites" class="favorites" data-favorite="inactive"
+                            ><i class="ion-ios-heart-outline"></i
+                            ></a>
+                            <a href="./"
+                            ><img
+                                    src="{{ tablet.image.url }}"
+                                    alt="{{ tablet.name }}"
+                            /></a>
 
-                        <div class="content align-center">
-                            <p class="price">${{ tablet.price }}</p>
-                            <h2 class="h3">{{ tablet.name }}</h2>
-                            <hr class="offset-sm"/>
+                            <div class="content align-center">
+                                <p class="price">${{ tablet.price }}</p>
+                                <h2 class="h3">{{ tablet.name }}</h2>
+                                <hr class="offset-sm"/>
 
-                            <button class="btn btn-link">
-                                <i class="ion-android-open"></i> Details
-                            </button>
-                            <button class="btn btn-primary btn-sm rounded">
-                                <i class="ion-bag"></i> Add to cart
-                            </button>
+                                <button class="btn btn-link">
+                                    <i class="ion-android-open"></i> Details
+                                </button>
+                                <button class="btn btn-primary btn-sm rounded">
+                                    <i class="ion-bag"></i> Add to cart
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
             <div class="align-right align-center-xs">

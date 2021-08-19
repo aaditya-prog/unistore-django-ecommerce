@@ -18,8 +18,10 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=100, unique=True)
     price = models.IntegerField(default=0)
-    image = models.ImageField(upload_to='products')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
+    image = models.ImageField(upload_to="products")
+    category = models.ForeignKey(
+        Category, related_name="products", on_delete=models.PROTECT, default=1
+    )
 
     def get_all_products():
         return Product.objects.all()
@@ -32,25 +34,26 @@ class Product(models.Model):
 
 
 class Cart(models.Model):
-    bought_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    bought_by = models.ForeignKey(User, on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    quantity = models.PositiveIntegerField(default=1)
     is_bought = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.product.name
-
-    def price(self):
-        return self.product.price
+        return self.bought_by.get_username()
 
 
 PAYMENT_CHOICES = [
-    ('COD', 'Cash on delivery'),
-    ('Paypal', 'Paypal'),
-    ('Card', 'Use your credit/debit card'),
+    ("COD", "Cash on delivery"),
+    ("Paypal", "Paypal"),
+    ("Card", "Use your credit/debit card"),
 ]
 
 
 class Orders(models.Model):
+    product = models.ForeignKey(
+        Product, related_name="orders", on_delete=models.PROTECT, default=1
+    )
     receiver = models.CharField(max_length=100)
     phone = models.IntegerField()
     email = models.EmailField()
@@ -58,4 +61,4 @@ class Orders(models.Model):
     street = models.CharField(max_length=100)
     building = models.CharField(max_length=100)
     payment = models.CharField(max_length=20, choices=PAYMENT_CHOICES)
-    promo = models.CharField(max_length=100)
+    promo = models.CharField(max_length=100, null=True, blank=True)

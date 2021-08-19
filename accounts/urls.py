@@ -9,5 +9,4 @@ urlpatterns = [
     path("logout", views.user_logout, name="logout"),
     path("contact", views.contact, name="contact"),
     path("activate-user/<uidb64>/<token>", views.activate_user, name="activate"),
-
 ]

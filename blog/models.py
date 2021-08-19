@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.core.validators import URLValidator
 from tinymce.models import HTMLField
 
+
 # Create your models here.
 
 

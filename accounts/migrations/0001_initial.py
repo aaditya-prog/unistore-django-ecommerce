@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = []
@@ -35,8 +34,6 @@ class Migration(migrations.Migration):
                 ("staff", models.BooleanField(default=False)),
                 ("admin", models.BooleanField(default=False)),
             ],
-            options={
-                "abstract": False,
-            },
-        ),
+            options={"abstract": False},
+        )
     ]

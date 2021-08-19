@@ -5,15 +5,12 @@ import tinymce.models
 
 
 class Migration(migrations.Migration):
-
-    dependencies = [
-        ("blog", "0002_alter_blog_description"),
-    ]
+    dependencies = [("blog", "0002_alter_blog_description")]
 
     operations = [
         migrations.AlterField(
             model_name="blog",
             name="description",
             field=tinymce.models.HTMLField(blank=True, null=True),
-        ),
+        )
     ]

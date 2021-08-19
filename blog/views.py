@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Blog
 from django.core.paginator import Paginator
 
+
 # Create your views here.
 def index(request):
     blogs = Blog.objects.all().order_by("id")

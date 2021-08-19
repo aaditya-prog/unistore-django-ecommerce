@@ -37,14 +37,14 @@
                                 <div class="alert alert-{{ message.tags }} mt-2" role="alert">{{ message }}</div>
                             {% endfor %}
 
-                            {%load crispy_forms_tags%}
+                            {% load crispy_forms_tags %}
                             <form method="POST" novalidate>
                                 {% csrf_token %}
                                 <div class="card-body">
-                                    {{form|crispy}}
+                                    {{ form|crispy }}
                                     <input type="submit" value="Add Category" class="btn btn-primary">
                             </form>
-                            
+
 
                             <!-- /.card -->
                         </div>

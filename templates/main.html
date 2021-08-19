@@ -56,89 +56,107 @@
 <body>
 <!-- Cart -->
 {% block cart %}
-    <div class="cart" data-toggle="inactive">
+    {% if request.user.is_authenticated %}
+        <div class="cart" data-toggle="inactive">
 
-        <div class="label"><i class="ion-bag"></i> {{ cart|length }}</div>
+            <div class="label"><i class="ion-bag"></i> {{ cart|length }}</div>
+            <div class="overlay"></div>
 
-        <div class="overlay"></div>
+            <div class="window">
+                <div class="title">
+                    <button type="button" class="close">
+                        <i class="ion-android-close"></i>
+                    </button>
+                    <h4>Shopping cart</h4>
+                </div>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="messages">
+                            <div class="alert alert-{{ message.tags }} mt-2" role="alert">
+                                <p class="ion-android-notifications"> {{ message }}</p></div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <div class="content">
+                    {% for item in cart %}
 
-        <div class="window">
-            <div class="title">
-                <button type="button" class="close">
-                    <i class="ion-android-close"></i>
-                </button>
-                <h4>Shopping cart</h4>
-            </div>
 
-            <div class="content">
-                {% for item in cart %}
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img
+                                            class="media-object"
+                                            src="{{ item.product.image.url }}"
+                                            alt="{{ item.product.name }} image"
+                                    />
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h2 class="h4 media-heading">{{ item.product.name }}</h2>
+                                <label>{{ item.product.category }}</label>
+                                <p class="price">${{ item.product.price }}</p>
+                            </div>
+                            <div class="controls">
+                                <form action="{% url 'store:modify' item.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="input-group">
+
+                            <span class="input-group-btn">
+                            <button
+                                    class="btn btn-default btn-sm"
+                                    type="button"
+                                    data-action="minus"
+                            >
+                         <i class="ion-minus-round"></i>
+                            </button>
+                            </span>
+
+                                        <input
+                                                type="text"
+                                                class="form-control input-sm"
+                                                placeholder="Qty"
+                                                value="{{ item.quantity }}"
+                                                readonly=""
+                                                name="quantity"
+                                        />
 
 
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="#">
-                                <img
-                                        class="media-object"
-                                        src="{{ item.product.image.url }}"
-                                        alt="{{ item.product.name }} image"
-                                />
+                                        <span class="input-group-btn">
+                                <button
+                                        class="btn btn-default btn-sm"
+                                        type="button"
+                                        data-action="plus"
+                                >
+                                    <i class="ion-plus-round"></i>
+                                </button>
+                                </span>
+                                    </div>
+                                    <input class="btn-sm btn-primary" type="submit" value="Modify">
+                                </form>
+                                <!-- /input-group -->
+                                <form action="{% url 'store:remove' item.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <input class="btn-sm btn-primary" type="submit" value="Remove">
+
+                                </form>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="checkout container-fluid">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 align-right">
+                            <a class="btn btn-primary" href="{% url 'store:checkout' %}">
+                                Checkout order
                             </a>
                         </div>
-                        <div class="media-body">
-                            <h2 class="h4 media-heading">{{ item.product.name }}</h2>
-                            <label>{{ item.product.category }}</label>
-                            <p class="price">${{ item.product.price }}</p>
-                        </div>
-                        <div class="controls">
-                            <div class="input-group">
-                <span class="input-group-btn">
-                  <button
-                          class="btn btn-default btn-sm"
-                          type="button"
-                          data-action="minus"
-                  >
-                    <i class="ion-minus-round"></i>
-                  </button>
-                </span>
-                                <input
-                                        type="text"
-                                        class="form-control input-sm"
-                                        placeholder="Qty"
-                                        value="1"
-                                        readonly=""
-                                />
-                                <span class="input-group-btn">
-                  <button
-                          class="btn btn-default btn-sm"
-                          type="button"
-                          data-action="plus"
-                  >
-                    <i class="ion-plus-round"></i>
-                  </button>
-                </span>
-                            </div>
-                            <!-- /input-group -->
-                            <form action="{% url 'store:remove' item.id %}" method="POST">
-                                {% csrf_token %}
-                                <input class="btn-sm btn-primary" type="submit" value="Remove">
-                            </form>
-
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-
-            <div class="checkout container-fluid">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 align-right">
-                        <a class="btn btn-primary" href="{% url 'store:checkout' %}">
-                            Checkout order
-                        </a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}
 <!--Top Links-->
 {% block toplinks %}
@@ -562,7 +580,7 @@
                                 <h2 class="modal-title text-center">Registration</h2>
                                 <br>
 
-                                <form class="join" action="index.php" method="post">
+                                <form class="join" action="" method="post">
                                     <input type="text" name="name" value="" placeholder="Name" required=""
                                            class="form-control"/>
                                     <br>

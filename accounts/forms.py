@@ -3,21 +3,14 @@ from django.forms import ModelForm
 from .models import User
 from django.contrib.auth.forms import AuthenticationForm
 
+
 class RegisterForm(forms.ModelForm):
     class Meta:
         model = User
 
-        fields = [
-            "full_name",
-            "email",
-            "password",
-        ]
+        fields = ["full_name", "email", "password"]
 
-        labels = {
-            "full_name": "Full Name",
-            "email": "Email",
-            "password": "Password",
-        }
+        labels = {"full_name": "Full Name", "email": "Email", "password": "Password"}
 
         # help_text = {
         #     "password": "Include numbers for better security",
@@ -31,22 +24,13 @@ class RegisterForm(forms.ModelForm):
 
         widgets = {
             "full_name": forms.TextInput(
-                attrs={
-                    "placeholder": "Enter your name",
-                    "class": "form-control",
-                }
+                attrs={"placeholder": "Enter your name", "class": "form-control"}
             ),
             "email": forms.EmailInput(
-                attrs={
-                    "placeholder": "Enter your email",
-                    "class": "form-control",
-                }
+                attrs={"placeholder": "Enter your email", "class": "form-control"}
             ),
             "password": forms.PasswordInput(
-                attrs={
-                    "placeholder": "Choose a password",
-                    "class": "form-control",
-                }
+                attrs={"placeholder": "Choose a password", "class": "form-control"}
             ),
         }
 
@@ -55,32 +39,23 @@ class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
 
-    username = forms.EmailField(widget=forms.TextInput(
-        attrs={'class': 'form-control',
-               'placeholder': 'Enter your email'
-               }
-    ))
-    password = forms.CharField(widget=forms.PasswordInput(
-        attrs={
-            'class': 'form-control',
-            'placeholder': 'Enter your password',
-        }
-    ))
-
-
-
+    username = forms.EmailField(
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Enter your email"}
+        )
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Enter your password"}
+        )
+    )
 
 
 class UserAddForm(forms.ModelForm):
     class Meta:
         model = User
 
-        fields = [
-            "full_name",
-            "email",
-            "password",
-            "staff",
-        ]
+        fields = ["full_name", "email", "password", "staff"]
 
         labels = {
             "full_name": "Full Name",
@@ -101,30 +76,16 @@ class UserAddForm(forms.ModelForm):
 
         widgets = {
             "full_name": forms.TextInput(
-                attrs={
-                    "placeholder": "Enter your name",
-                    "class": "form-control",
-                }
+                attrs={"placeholder": "Enter your name", "class": "form-control"}
             ),
             "email": forms.EmailInput(
-                attrs={
-                    "placeholder": "Enter your email",
-                    "class": "form-control",
-                }
+                attrs={"placeholder": "Enter your email", "class": "form-control"}
             ),
             "password": forms.PasswordInput(
-                attrs={
-                    "placeholder": "Choose a password",
-                    "class": "form-control",
-                }
+                attrs={"placeholder": "Choose a password", "class": "form-control"}
             ),
-            "staff": forms.CheckboxInput(
-                attrs={
-                    "class": "form-check",
-                }
-            ),
+            "staff": forms.CheckboxInput(attrs={"class": "form-check"}),
         }
-
 
 
 class ContactForm(forms.Form):

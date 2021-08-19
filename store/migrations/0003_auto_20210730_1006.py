@@ -6,17 +6,13 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ("store", "0002_product_bought"),
     ]
 
     operations = [
-        migrations.RenameModel(
-            old_name="Product_bought",
-            new_name="Cart",
-        ),
+        migrations.RenameModel(old_name="Product_bought", new_name="Cart"),
         migrations.CreateModel(
             name="Orders",
             fields=[

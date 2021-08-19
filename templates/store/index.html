@@ -1,293 +1,221 @@
-
 {% extends "main.html" %}
 {% load static %}
 {% block title %}Store{% endblock %}
 {% block content %}
- <hr class="offset-top">
-<div class="tags">
-    <div class="container">
-        <div class="btn-group pull-right sorting">
-            <button
-                    type="button"
-                    class="btn btn-default btn-sm dropdown-toggle"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-            >
-                <i class="ion-arrow-down-b"></i> Sorting by name
-            </button>
-
-            <ul class="dropdown-menu">
-                <li class="active">
-                    <a href="?sort=name"> <i class="ion-arrow-down-c"></i> Name [A-Z]</a>
-                </li>
-                <li>
-                    <a href="?sort=-name">
-                        <i class="ion-arrow-up-c"></i> Name [Z-A]</a
-                    >
-                </li>
-                <li>
-                    <a href="?sort=price">
-                        <i class="ion-arrow-down-c"></i> Price [Low-High]</a
-                    >
-                </li>
-                <li>
-                    <a href="?sort=-price">
-                        <i class="ion-arrow-up-c"></i> Price [High-Low]</a
-                    >
-                </li>
-            </ul>
-        </div>
-
-        <p>
-            <button
-                    class="btn btn-sm btn-primary ion-ios-search"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#collapseExample"
-                    aria-expanded="false"
-                    aria-controls="collapseExample"
-            >
-                Search Products
-            </button>
-        </p>
-        <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-                <form class="form-inline">
-                    <div class="form-group mb-2">
-                        <label>Name</label>
-                        {{ myFilter.form.name }}
-                    </div>
-
-                    <div class="form-group mb-2">
-                        <label>Price</label>
-                        {{ myFilter.form.price }}
-                    </div>
-
-                    <div class="form-group mb-2">
-                        <label>Category</label>
-                        {{ myFilter.form.category }}
-                    </div>
-                    <input
-                            type="submit"
-                            class="btn-sm btn-primary mb-2"
-                            value="Search by Product"
-                    />
-                </form>
-                <br/>
-            </div>
-        </div>
-        <div class="btn-group">
-            <a
-                    href="{% url 'store:index' %}"
-                    class="btn btn-default btn-sm active"
-            >All Products</a
-            >
-            {% for category in categories %}
-                <a
-                        href="?category={{ category.id }}"
-                        class="btn btn-default btn-sm active"
-                >{{ category.name }}</a
+    <hr class="offset-top">
+    <div class="tags">
+        <div class="container">
+            <div class="btn-group pull-right sorting">
+                <button
+                        type="button"
+                        class="btn btn-default btn-sm dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
                 >
-            {% endfor %}
-        </div>
-    </div>
-</div>
+                    <i class="ion-arrow-down-b"></i> Sorting by name
+                </button>
 
-<div class="container">
-        <!-- Products -->
+                <ul class="dropdown-menu">
+                    <li class="active">
+                        <a href="?sort=name"> <i class="ion-arrow-down-c"></i> Name [A-Z]</a>
+                    </li>
+                    <li>
+                        <a href="?sort=-name">
+                            <i class="ion-arrow-up-c"></i> Name [Z-A]</a
+                        >
+                    </li>
+                    <li>
+                        <a href="?sort=price">
+                            <i class="ion-arrow-down-c"></i> Price [Low-High]</a
+                        >
+                    </li>
+                    <li>
+                        <a href="?sort=-price">
+                            <i class="ion-arrow-up-c"></i> Price [High-Low]</a
+                        >
+                    </li>
+                </ul>
+            </div>
 
-            <hr class="offset-lg"/>
-
-            <div class="products">
-                <div class="row">
-                    {% if products %} {% for product in page_obj %}
-                        <div class="col-sm-6 col-md-4 product">
-                            <div class="body">
-                                <a
-                                        href="#favorites"
-                                        class="favorites"
-                                        data-favorite="inactive"
-                                ><i class="ion-ios-heart-outline"></i
-                                ></a>
-                                <a href=""
-                                ><img src="{{ product.image.url }}" alt="{{ product.name }}"
-                                /></a>
-
-                                <div class="content">
-                                    <h1 class="h3">{{ product.name }}</h1>
-                                    <p class="price">${{ product.price }}</p>
-                                    <label><strong>{{ product.category.name }}</strong></label>
-
-                                    <button class="btn btn-link">
-                                        <i class="ion-android-open"></i> Details
-                                    </button>
-                                    <form class="form form-inline" action="{% url 'store:cart' %}" method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="productId" value="{{ product.id }}">
-                                        <input type="hidden" name="userId" value="{{ user.id }}">
-                                        <input class="btn btn-primary btn-sm rounded update-cart" type="submit"
-                                               value="Add to Cart">
-                                    </form>
-                                </div>
-                            </div>
+            <p>
+                <button
+                        class="btn btn-sm btn-primary ion-ios-search"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#collapseExample"
+                        aria-expanded="false"
+                        aria-controls="collapseExample"
+                >
+                    Search Products
+                </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <form class="form-inline">
+                        <div class="form-group mb-2">
+                            <label>Name</label>
+                            {{ myFilter.form.name }}
                         </div>
-                    {% endfor %} {% else %}
-                        <div class="text-center">
-                            <div class="product">
-                                <br/><br/><br/><br/><br/><br/><br/>
-                                <div class="body">
-                                    <div class="content">
-                                        <h1 class="h3">Sorry, the products in this category are not available right
-                                            now.</h1>
-                                        <label>You can browse other categories or read our blogs meanwhile.</label>
-                                        <a href={% url 'blog:index' %}>Go to blogs</a>
-                                    </div>
-                                </div>
-                            </div>
+
+                        <div class="form-group mb-2">
+                            <label>Price</label>
+                            {{ myFilter.form.price }}
                         </div>
-                    {% endif %}
+
+                        <div class="form-group mb-2">
+                            <label>Category</label>
+                            {{ myFilter.form.category }}
+                        </div>
+                        <input
+                                type="submit"
+                                class="btn-sm btn-primary mb-2"
+                                value="Search by Product"
+                        />
+                    </form>
+                    <br/>
                 </div>
             </div>
+            <div class="btn-group">
+                <a
+                        href="{% url 'store:index' %}"
+                        class="btn btn-default btn-sm active"
+                >All Products</a
+                >
+                {% for category in categories %}
+                    <a
+                            href="?category={{ category.id }}"
+                            class="btn btn-default btn-sm active"
+                    >{{ category.name }}</a
+                    >
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
-            <nav>
-                <ul class="pagination">
-                    <li>
-                        {% if page_obj.has_previous %}
-                            <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+    <div class="container">
+        <!-- Products -->
+
+        <hr class="offset-lg"/>
+
+        <div class="products">
+            <div class="row">
+                {% if products %} {% for product in page_obj %}
+                    <div class="col-sm-6 col-md-4 product">
+                        <div class="body">
+                            <a
+                                    href="#favorites"
+                                    class="favorites"
+                                    data-favorite="inactive"
+                            ><i class="ion-ios-heart-outline"></i
+                            ></a>
+                            <a href=""
+                            ><img src="{{ product.image.url }}" alt="{{ product.name }}"
+                            /></a>
+
+                            <div class="content">
+                                <h1 class="h3">{{ product.name }}</h1>
+                                <p class="price">${{ product.price }}</p>
+                                <label><strong>{{ product.category.name }}</strong></label>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <form action="{% url 'store:cart' %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="productId" value="{{ product.id }}">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <input type="hidden" name="userId" value="{{ user.id }}">
+                                            <button class="btn btn-primary btn-sm" type="submit"><i class="ion-bag"></i>
+                                                Add to cart
+                                            </button>
+
+                                        </form>
+                                    </div>
+                                    <div class="col-xs-6">
+
+                                        <form action="{% url 'store:order-now' %}"
+                                              method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="productId" value="{{ product.id }}">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <input type="hidden" name="userId" value="{{ user.id }}">
+                                            <button class="btn btn-primary btn-sm" type="submit"><i
+                                                    class="ion-android-cart"></i> Order Now
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %} {% else %}
+                    <div class="text-center">
+                        <div class="product">
+                            <br/><br/><br/><br/><br/><br/><br/>
+                            <div class="body">
+                                <div class="content">
+                                    <h1 class="h3">Sorry, the products in this category are not available right
+                                        now.</h1>
+                                    <label>You can browse other categories or read our blogs meanwhile.</label>
+                                    <a href={% url 'blog:index' %}>Go to blogs</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <nav>
+            <ul class="pagination">
+                <li>
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
                   <span aria-hidden="true"
                   ><i class="ion-ios-arrow-left"></i
                   ></span>
-                            </a>
-                        {% endif %}
-                    </li>
-                    <li class="active"><a href="">{{ page_obj.number }}</a></li>
-                    {% comment %} <li><a href="?page=2">2</a></li>
+                        </a>
+                    {% endif %}
+                </li>
+                <li class="active"><a href="">{{ page_obj.number }}</a></li>
+                {% comment %} <li><a href="?page=2">2</a></li>
               <li><a href="?page=3">3</a></li>
               <li><a href="#">10</a></li> {% endcomment %}
-                    <li>
-                        {% if page_obj.has_next %}
-                            <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                <li>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
                   <span aria-hidden="true"
                   ><i class="ion-ios-arrow-right"></i
                   ></span>
-                            </a>
-                        {% endif %}
-                    </li>
-                </ul>
-            </nav>
+                        </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
 
         <!-- /// -->
-</div>
-
-<hr class="offset-lg"/>
-<hr class="offset-sm"/>
-<footer>
-    <div class="about">
-        <div class="container">
-            <div class="row">
-                <hr class="offset-md"/>
-
-                <div class="col-xs-6 col-sm-3">
-                    <div class="item">
-                        <i class="ion-ios-telephone-outline"></i>
-                        <h1>
-                            24/7 free <br/>
-                            <span>support</span>
-                        </h1>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-3">
-                    <div class="item">
-                        <i class="ion-ios-star-outline"></i>
-                        <h1>
-                            Low price <br/>
-                            <span>guarantee</span>
-                        </h1>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-3">
-                    <div class="item">
-                        <i class="ion-ios-gear-outline"></i>
-                        <h1>
-                            Manufacturer’s <br/>
-                            <span>warranty</span>
-                        </h1>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-3">
-                    <div class="item">
-                        <i class="ion-ios-loop"></i>
-                        <h1>
-                            Full refund <br/>
-                            <span>guarantee</span>
-                        </h1>
-                    </div>
-                </div>
-
-                <hr class="offset-md"/>
-            </div>
-        </div>
     </div>
 
-    <div class="subscribe">
-        <div class="container align-center">
-            <hr class="offset-md"/>
+{% endblock %}
+<script type="text/javascript">
+    $(document).on('submit', '#add-to-cart-form', function (e) {
+        e.preventDefault();
+        const product_id = document.getElementById("productId").val();
+        const user_id = document.getElementById("userId").val();
+        $.ajax({
+            type: 'POST',
+            url: '/store/cart',
+            data: {
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
 
-            <h1 class="h3 upp">Join our newsletter</h1>
-            <p>
-                Get more information and receive special discounts for our products.
-            </p>
-            <hr class="offset-sm"/>
+                productId: product_id,
+                userId: userId
+            },
+            success: function (data) {
+                $('h3').html(data);
 
-            <form action="index.php" method="post">
-                <div class="input-group">
-                    <input
-                            type="email"
-                            name="email"
-                            value=""
-                            placeholder="E-mail"
-                            required=""
-                            class="form-control"
-                    />
-                    <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary">
-                  Subscribe <i class="ion-android-send"></i>
-                </button>
-              </span>
-                </div>
-                <!-- /input-group -->
-            </form>
-            <hr class="offset-lg"/>
-            <hr class="offset-md"/>
-
-            <div class="social">
-                <a href="#"><i class="ion-social-facebook"></i></a>
-                <a href="#"><i class="ion-social-twitter"></i></a>
-                <a href="#"><i class="ion-social-googleplus-outline"></i></a>
-                <a href="#"><i class="ion-social-instagram-outline"></i></a>
-                <a href="#"><i class="ion-social-linkedin-outline"></i></a>
-                <a href="#"><i class="ion-social-youtube-outline"></i></a>
-            </div>
-            {% endblock %}
-            <script type="text/javascript">
-                $(document).on('submit', '#add-to-cart-form', function (e) {
-                    e.preventDefault();
-                    const product_id = document.getElementById("productId").val();
-                    const user_id = document.getElementById("userId").val();
-                    $.ajax({
-                        type: 'POST',
-                        url: '/store/cart',
-                        data: {
-                            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-
-                            productId: product_id,
-                            userId: userId
-                        },
-                        success: function (data) {
-                            $('h3').html(data);
-
-                        }
-                    })
-                })
-            </script>
+            }
+        })
+    })
+</script>

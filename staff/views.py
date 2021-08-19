@@ -48,6 +48,7 @@ def delete_user(request, id):
         data.delete()
         return redirect("staff:userread")
 
+
 @login_required
 @admin_access("accounts:index")
 def update_user(request, id):
@@ -56,10 +57,7 @@ def update_user(request, id):
         pw = request.POST.copy()
         fm = RegisterForm(pw, instance=data)
         if len(request.POST["password"]) < 4:
-            context = {
-                "form": fm,
-                "error": "Password must be greater than 3",
-            }
+            context = {"form": fm, "error": "Password must be greater than 3"}
             return render(request, "admin/users/update.html", context)
         pw["password"] = make_password(request.POST["password"])
 
@@ -257,9 +255,5 @@ def Order(request):
     total = 0
     for item in items:
         total = total + int(item.product.price)
-    context = {
-        "data": orderdata,
-        "items": items,
-        "total": total
-    }
+    context = {"data": orderdata, "items": items, "total": total}
     return render(request, "admin/product/orderread.html", context)

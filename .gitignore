@@ -1,2 +1,4 @@
+.idea/
 .env
-.vscode
+.vscode/
+.pre-commit-config.yaml

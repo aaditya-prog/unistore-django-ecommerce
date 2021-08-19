@@ -25,11 +25,11 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
-                                    {%load crispy_forms_tags%}
+                                {% load crispy_forms_tags %}
                                 <form method="POST" enctype="multipart/form-data" novalidate>
                                     {% csrf_token %}
                                     <div class="card-body">
-                                        {{form|crispy}}
+                                        {{ form|crispy }}
                                         <br>
                                         <input class="btn btn-warning" type="submit" value="Update">
 
