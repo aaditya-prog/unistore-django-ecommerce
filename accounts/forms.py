@@ -1,7 +1,8 @@
 from django import forms
-from django.forms import ModelForm
-from .models import User
 from django.contrib.auth.forms import AuthenticationForm
+from django.forms import ModelForm
+
+from .models import User
 
 
 class RegisterForm(forms.ModelForm):
@@ -24,7 +25,7 @@ class RegisterForm(forms.ModelForm):
 
         widgets = {
             "full_name": forms.TextInput(
-                attrs={"placeholder": "Enter your name", "class": "form-control"}
+                attrs={"placeholder": "Enter your full name", "class": "form-control"}
             ),
             "email": forms.EmailInput(
                 attrs={"placeholder": "Enter your email", "class": "form-control"}

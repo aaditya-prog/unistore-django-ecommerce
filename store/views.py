@@ -1,17 +1,15 @@
-from django.contrib import messages
-from django.shortcuts import render, redirect
-
-from .models import Product, Category, Cart
-
-from .models import Product, Category, Cart, Orders
-
-from django.views import View
-from .filters import ProductFilter
-from django.core.paginator import Paginator
-from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 import json
-from .forms import OrderForm
+
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.shortcuts import redirect, render
+from django.views import View
+
+from .filters import ProductFilter
+from .forms import OrderForm
+from .models import Cart, Category, Orders, Product
 
 
 # Create your views here.
@@ -102,8 +100,11 @@ def delete_cart(request, id):
 def modify_cart(request, id):
     if request.method == "POST":
         quantity = request.POST.get("quantity")
-        Cart.objects.filter(pk=id).update(quantity=quantity)
-        messages.success(request, "Product successfully deleted.")
+        if quantity > 5:
+            messages.error(request, "Only 5 items can be bought at once")
+        else:
+            Cart.objects.filter(pk=id).update(quantity=quantity)
+            messages.success(request, "Product successfully deleted.")
     return redirect("store:index")
 
 
@@ -134,12 +135,6 @@ def checkout(request):
             Cart.objects.filter(bought_by=request.user).update(is_bought=True)
             frm = OrderForm()
             messages.success(request, "Order placed successfully.")
-        else:
-            messages.error(
-                request,
-                "Order failed, make sure you fill in all the details and have at least one item "
-                "in the cart",
-            )
     else:
         frm = OrderForm()
     items = Cart.objects.filter(bought_by=request.user, is_bought=False).order_by("id")

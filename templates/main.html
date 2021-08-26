@@ -96,7 +96,7 @@
                                 <label>{{ item.product.category }}</label>
                                 <p class="price">${{ item.product.price }}</p>
                             </div>
-                            <div class="controls">
+                        <div class="controls">
                                 <form action="{% url 'store:modify' item.id %}" method="POST">
                                     {% csrf_token %}
                                     <div class="input-group">
@@ -656,7 +656,7 @@
     ></script>
 
     <script text="javascript">
-        setTimeout(fade_out, 3000);
+        setTimeout(fade_out, 6000);
 
         function fade_out() {
             $(".messages").fadeOut().empty();

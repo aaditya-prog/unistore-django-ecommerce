@@ -1,0 +1,15 @@
+Blog
+======
+
+.. automodule:: accounts.views
+   :members:
+   :undoc-members:
+
+`/blog <http://127.0.0.1:8000/blog/>`_
+
+* When this url gets hit, the respective view "index" is called. A "GET" request is sent to the server by default.
+
+**Response**
+
+* When the "GET" request is sent to the server, the view renders the template and all the blogs from the "Blogs" model using queryset.
+* Paginator has been used in order to filter only four blogs in a single page to make the content more readable.

@@ -1,14 +1,16 @@
-from django.shortcuts import render, HttpResponseRedirect, redirect
-from accounts.forms import UserAddForm, RegisterForm
-from accounts.models import User
 from django.contrib import messages
-from django.contrib.auth.hashers import make_password
-from store.models import Category, Product, Orders, Cart
-from .forms import ProductForm, CategoryForm, BlogForm
-from blog.models import Blog
-from accounts.decorators import login_excluded, admin_access
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
+from django.shortcuts import HttpResponseRedirect, redirect, render
+
+from accounts.decorators import admin_access, login_excluded
+from accounts.forms import RegisterForm, UserAddForm
+from accounts.models import User
+from blog.models import Blog
+from store.models import Cart, Category, Orders, Product
+
+from .forms import BlogForm, CategoryForm, ProductForm
 
 
 # Create your views here.

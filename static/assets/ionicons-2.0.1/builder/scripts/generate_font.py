@@ -2,13 +2,14 @@
 # https://github.com/FontCustom/fontcustom/
 # http://fontcustom.com/
 
-import fontforge
+import copy
+import json
 import os
-import md5
 import subprocess
 import tempfile
-import json
-import copy
+
+import fontforge
+import md5
 
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
 INPUT_SVG_DIR = os.path.join(SCRIPT_PATH, "..", "..", "src")

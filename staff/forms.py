@@ -1,7 +1,8 @@
 from django import forms
 from tinymce.widgets import TinyMCE
-from store.models import Product, Category
+
 from blog.models import Blog
+from store.models import Category, Product
 
 
 class ProductForm(forms.ModelForm):

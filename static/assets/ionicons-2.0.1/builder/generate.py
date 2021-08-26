@@ -1,6 +1,6 @@
-from subprocess import call
-import os
 import json
+import os
+from subprocess import call
 
 BUILDER_PATH = os.path.dirname(os.path.abspath(__file__))
 ROOT_PATH = os.path.join(BUILDER_PATH, "..")

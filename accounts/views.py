@@ -1,29 +1,31 @@
 from unicodedata import category
+
 from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, HttpResponse
-from .forms import RegisterForm, ContactForm, LoginForm
-from .models import User
-from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
-from .decorators import login_excluded, admin_access
-from store.models import Product, Category
-from blog.models import Blog
-from django.core.mail import send_mail, BadHeaderError, EmailMessage
-from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from .utils import generate_token
-from django.utils.encoding import (
-    DjangoUnicodeDecodeError,
-    force_bytes,
-    force_str,
-    force_text,
-)
-from django.urls import reverse
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.password_validation import validate_password
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError
+from django.core.mail import BadHeaderError, EmailMessage, send_mail
+from django.http import HttpResponseRedirect
+from django.shortcuts import HttpResponse, redirect, render
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django.utils.encoding import (DjangoUnicodeDecodeError, force_bytes,
+                                   force_str, force_text)
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+
+from blog.models import Blog
+from store.models import Category, Product
+
+from .decorators import admin_access, login_excluded
+from .forms import ContactForm, LoginForm, RegisterForm
+from .models import User
+from .utils import generate_token
+
+
+def has_numbers(inputString):
+    return any(char.isdigit() for char in inputString)
 
 
 # function to send an activation email
@@ -92,14 +94,21 @@ def register(request):
             name = fm.cleaned_data["full_name"]
             email = fm.cleaned_data["email"]
             password = fm.cleaned_data["password"]
-            user = User(full_name=name, email=email, password=password)
-            user.is_active = False
-            user.set_password(password)
-            user.save()
-            send_activation_email(user, request)
-            messages.success(
-                request, "Registration Successful, verify your email to login."
-            )
+            if len(password) < 8:
+                messages.error(
+                    request, "Your password must contain more than 8 characters"
+                )
+            elif not has_numbers(password):
+                messages.error(request, "Your password must contain a numeric value")
+            else:
+                user = User(full_name=name, email=email, password=password)
+                user.is_active = False
+                user.set_password(password)
+                user.save()
+                send_activation_email(user, request)
+                messages.success(
+                    request, "Registration Successful, verify your email to login."
+                )
         else:
             messages.error(request, "Registration failed, try again.")
     else:
@@ -143,8 +152,11 @@ def contact(request):
             message = form.cleaned_data["message"]
             try:
                 send_mail(subject, message, from_email, ["aadietya.me.d@gmail.com"])
+                messages.success(request, "Message sent.")
             except BadHeaderError:
                 return HttpResponse("Invalid header found.")
             return redirect("accounts:index")
+        else:
+            messages.error(request, "Could not send message, try again.")
     form = ContactForm()
     return render(request, "contacts/index.html", {"form": form})

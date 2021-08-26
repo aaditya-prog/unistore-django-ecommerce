@@ -100,75 +100,104 @@
                                             <p class="price cart-price"> ${{ item.product.price }}</p>
                                         </div>
                                         <div class="controls">
-                                            <div class="input-group">
-                                            <span class="input-group-btn">
-                                              <button class="btn btn-default btn-sm" type="button"
-                                                      data-action="minus"><i class="ion-minus-round"></i></button>
-                                            </span>
-                                                <input type="text" class="form-control input-sm" placeholder="Qty"
-                                                       value="1" readonly="">
-                                                <span class="input-group-btn">
-                                              <button class="btn btn-default btn-sm" type="button" data-action="plus"><i
-                                                      class="ion-plus-round"></i></button>
-                                            </span>
+                                            <form action="{% url 'store:modify' item.id %}" method="POST">
+                                                {% csrf_token %}
+                                                <div class="input-group">
 
-                                            </div><!-- /input-group -->
+                            <span class="input-group-btn">
+                            <button
+                                    class="btn btn-default btn-sm"
+                                    type="button"
+                                    data-action="minus"
+                            >
+                         <i class="ion-minus-round"></i>
+                            </button>
+                            </span>
 
-                                            <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
+                                                    <input
+                                                            type="text"
+                                                            class="form-control input-sm"
+                                                            placeholder="Qty"
+                                                            value="{{ item.quantity }}"
+                                                            readonly=""
+                                                            name="quantity"
+                                                    />
+
+
+                                                    <span class="input-group-btn">
+                                <button
+                                        class="btn btn-default btn-sm"
+                                        type="button"
+                                        data-action="plus"
+                                >
+                                    <i class="ion-plus-round"></i>
+                                </button>
+                                </span>
+                                                </div>
+                                                <input class="btn-sm btn-primary" type="submit" value="Modify">
+                                            </form>
+                                            <!-- /input-group -->
+                                            <form action="{% url 'store:remove' item.id %}" method="POST">
+                                                {% csrf_token %}
+                                                <input class="btn-sm btn-primary" type="submit" value="Remove">
+
+                                            </form>
+
                                         </div>
                                     </div>
+                                    </div>
                                 {% endfor %}
-                                <nav>
-                                    <ul class="pagination">
-                                        <li>
-                                            {% if page_obj.has_previous %}
-                                                <a href="?page={{ page_obj.previous_page_number }}"
-                                                   aria-label="Previous">
+                            <nav>
+                                <ul class="pagination">
+                                    <li>
+                                        {% if page_obj.has_previous %}
+                                            <a href="?page={{ page_obj.previous_page_number }}"
+                                               aria-label="Previous">
                   <span aria-hidden="true"
                   ><i class="ion-ios-arrow-left"></i
                   ></span>
-                                                </a>
-                                            {% endif %}
-                                        </li>
-                                        <li class="active"><a href="">{{ page_obj.number }}</a></li>
-                                        {% comment %} <li><a href="?page=2">2</a></li>
+                                            </a>
+                                        {% endif %}
+                                    </li>
+                                    <li class="active"><a href="">{{ page_obj.number }}</a></li>
+                                    {% comment %} <li><a href="?page=2">2</a></li>
               <li><a href="?page=3">3</a></li>
               <li><a href="#">10</a></li> {% endcomment %}
-                                        <li>
-                                            {% if page_obj.has_next %}
-                                                <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                    <li>
+                                        {% if page_obj.has_next %}
+                                            <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
                   <span aria-hidden="true"
                   ><i class="ion-ios-arrow-right"></i
                   ></span>
-                                                </a>
-                                            {% endif %}
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
+                                            </a>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
-                        <hr class="offset-md visible-xs visible-sm">
                     </div>
-
-                    <hr class="offset-lg hidden-xs">
-
-                    <div class="col-sm-12 white">
-                        <hr class="offset-md">
-                        <div class="row">
-                            <div class="col-xs-6 col-md-4">
-                                <h3 class="h5 no-margin">Sub total: ${{ total }}</h3>
-                                <h3 class="h4 no-margin">Total: ${{ total }}</h3>
-                            </div>
-                            <div class="col-md-4 hidden-xs">
-                            </div>
-                            <div class="col-xs-6 col-md-4">
-                                <input class="btn btn-primary pull-right" type="submit" value="Confirm Order">
-                            </div>
-                        </div>
-                        <hr class="offset-md">
-                    </div>
-
+                    <hr class="offset-md visible-xs visible-sm">
                 </div>
+
+                <hr class="offset-lg hidden-xs">
+
+                <div class="col-sm-12 white">
+                    <hr class="offset-md">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-4">
+                            <h3 class="h5 no-margin">Sub total: ${{ total }}</h3>
+                            <h3 class="h4 no-margin">Total: ${{ total }}</h3>
+                        </div>
+                        <div class="col-md-4 hidden-xs">
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <input class="btn btn-primary pull-right" type="submit" value="Confirm Order">
+                        </div>
+                    </div>
+                    <hr class="offset-md">
+                </div>
+
+            </div>
         </form>
     </div>
 
