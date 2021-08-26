@@ -15,7 +15,10 @@ Welcome to Unistore's documentation!
    modules/home.rst
    modules/contact.rst
    modules/blog.rst
-
+   modules/store.rst
+   modules/cart.rst
+   modules/order-now.rst
+   modules/checkout.rst
 
 Indices and tables
 ==================

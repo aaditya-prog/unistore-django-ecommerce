@@ -1,10 +1,6 @@
 Home
 ======
 
-.. automodule:: accounts.views
-   :members:
-   :undoc-members:
-
 http://127.0.0.1:8000
 
 * When this url gets hit, the respective view "index" is called. A "GET" request is sent to the server by default.

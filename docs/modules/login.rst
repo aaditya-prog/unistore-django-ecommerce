@@ -1,14 +1,9 @@
 Login
 ======
 
-.. automodule:: accounts.views
-   :members:
-   :undoc-members:
-
 `/login <http://127.0.0.1:8000/login/>`_
 
 * When this url gets hit, the respective view "user_login" is called. A "GET" request is sent to the server by default.
-
 
 **Method: GET**
 
@@ -31,7 +26,6 @@ Login
 **Method: POST**
 
 * The values entered in the fields (email and password) are submitted to the server via POST request. If the email and password gets matched, the user is authenticated to the website.
-
 
 **Response**
 

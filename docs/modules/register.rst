@@ -1,10 +1,6 @@
 Register
 ======
 
-.. automodule:: accounts.views
-   :members:
-   :undoc-members:
-
 `/register <http://127.0.0.1:8000/register/>`_
 
 * When this url gets hit, the respective view "register" is called. A "GET" request is sent to the server by default.
