@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "store",
     "blog",
     "staff",
+    "docs",
 ]
 
 MIDDLEWARE = [
@@ -161,3 +162,5 @@ TINYMCE_DEFAULT_CONFIG = {
     "menubar": True,
     "statusbar": True,
 }
+
+DOCS_ROOT = os.path.join(BASE_DIR, 'docs/_build/html')

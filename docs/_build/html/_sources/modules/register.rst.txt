@@ -1,5 +1,5 @@
 Register
-======
+========
 
 `/register <http://127.0.0.1:8000/register/>`_
 
@@ -29,7 +29,7 @@ Register
 
 **Method: POST**
 
-* The values entered in the fields are submitted to the server via POST request. Validation of the inputs is carried out. And, if the input passes the validation, the data is saved in the database using save() function. And, an activation mail is sent to the user's email.
+* The values entered in the fields are submitted to the server via POST request. Validation of the inputs is carried out. And, if the input passes the validation, the data is saved in the database using save() method. And, an activation mail is sent to the user's email.
 
 **Response**
 

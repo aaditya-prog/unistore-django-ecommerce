@@ -31,4 +31,4 @@ Login
 
 * Based on the input data, the server sends different responses. Using the django messages framework, a success message is displayed if the data is valid whereas an error message is displayed if the data is invalid.
 
-* If the user is an admin, the user is redirected to the admin page at http://127.0.0.1:8000/staff/view-user. Whereas, if the user is a normal user, he/she is redirected to the home page at http://127.0.0.1:8000
+* If the user is an admin, the user is redirected to the admin page at `staff/view-user. <http://127.0.0.1:8000/staff/view-user>`_ Whereas, if the user is a normal user, the authenticated user is redirected to the home page.

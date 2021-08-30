@@ -1,5 +1,5 @@
 Checkout
-======
+========
 
 `/store/checkout <http://127.0.0.1:8000/store/checkout>`_
 

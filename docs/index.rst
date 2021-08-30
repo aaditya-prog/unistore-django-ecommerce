@@ -8,7 +8,7 @@ Welcome to Unistore's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: contents:
 
    modules/register.rst
    modules/login.rst
@@ -19,6 +19,7 @@ Welcome to Unistore's documentation!
    modules/cart.rst
    modules/order-now.rst
    modules/checkout.rst
+   modules/admin.rst
 
 Indices and tables
 ==================

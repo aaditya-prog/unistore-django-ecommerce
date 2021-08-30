@@ -14,18 +14,19 @@ import os
 import sys
 
 import django
+import sphinx_pdj_theme
+# At the top.
+import sphinx_bootstrap_theme
 
 sys.path.insert(0, os.path.abspath(".."))
 os.environ["DJANGO_SETTINGS_MODULE"] = "Unistore.settings"
 django.setup()
-
 
 # -- Project information -----------------------------------------------------
 
 project = "Unistore"
 copyright = "2021, Aaditya Dulal"
 author = "Aaditya Dulal"
-
 
 # -- General configuration ---------------------------------------------------
 
@@ -42,13 +43,16 @@ templates_path = ["_templates"]
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
-
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "alabaster"
+# html_theme = "sphinx_pdj_theme"
+# html_theme_path = [sphinx_pdj_theme.get_html_theme_path()]
+
+html_theme = 'bootstrap'
+html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
