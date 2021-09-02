@@ -49,7 +49,7 @@ Add User
 * Based on the input data, the server sends different responses. Using the django messages framework, a success message is displayed if the data is valid whereas an error message is displayed if the data is invalid.
 
 View User
-********
+*********
 
 2. `/staff/view-user <http://127.0.0.1:8000/staff/view-user>`_
 
@@ -62,7 +62,7 @@ View User
 * When the "GET" request is sent to the server, the view returns the list of the users using queryset.
 
 Delete User
-********
+***********
 
 3. `/staff/delete-user/<user-id> <http://127.0.0.1:8000/staff/delete-user/100>`_
 
@@ -77,7 +77,7 @@ The specific <user-id> is sent in the url from the form of `/staff/view-user <ht
 Using the django messages framework, a success message stating that the data has been deleted is returned to the template.
 
 Update User
-********
+***********
 
 4. `/staff/update-user/<user-id> <http://127.0.0.1:8000/staff/update-user/100>`_
 
@@ -112,7 +112,7 @@ The specific <user-id> is sent in the url from the form of `/staff/view-user <ht
 Using the django messages framework, a success message stating that the data has been deleted is returned to the template.
 
 Add Category
-********
+************
 
 5. `/staff/add-category <http://127.0.0.1:8000/staff/add-category>`_
 
@@ -142,7 +142,7 @@ Add Category
 * Based on the input data, the server sends different responses. Using the django messages framework, a success message is displayed if the data is valid whereas an error message is displayed if the data is invalid.
 
 View Category
-********
+**************
 
 6. `/staff/view-category <http://127.0.0.1:8000/staff/view-category>`_
 
@@ -155,7 +155,7 @@ View Category
 * When the "GET" request is sent to the server, the view returns the list of the categories using queryset.
 
 Delete Category
-********
+***************
 
 7. `/staff/delete-category/<category-id> <http://127.0.0.1:8000/staff/delete-category/100>`_
 
@@ -170,7 +170,7 @@ The specific <category-id> is sent in the url from the form of `/staff/view-cate
 Using the django messages framework, a success message stating that the data has been deleted is returned to the template.
 
 Update Category
-********
+***************
 
 8. `/staff/update-category/<category-id> <http://127.0.0.1:8000/staff/update-category/100>`_
 
@@ -178,7 +178,7 @@ Update Category
 
 * When the url along with the <category-id> gets hit, the view returns the user add form with the populated data of the same ID using queryset.
 
-. list-table:: **Category update form**
+.. list-table:: **Category update form**
    :widths: 25 25 25
    :header-rows: 1
 
@@ -196,7 +196,7 @@ The specific <category-id> is sent in the url from the form of `/staff/view-cate
 Using the django messages framework, a success message stating that the data has been deleted is returned to the template.
 
 Add Product
-********
+************
 
 9. `/staff/add-product <http://127.0.0.1:8000/staff/add-product>`_
 
@@ -235,7 +235,7 @@ Add Product
 * Based on the input data, the server sends different responses. Using the django messages framework, a success message is displayed if the data is valid whereas an error message is displayed if the data is invalid.
 
 View Product
-********
+************
 
 10. `/staff/view-product <http://127.0.0.1:8000/staff/view-product>`_
 
@@ -248,7 +248,7 @@ View Product
 * When the "GET" request is sent to the server, the view returns the list of the the products from the "Product" model using queryset.
 
 Delete Product
-********
+**************
 
 11. `/staff/delete-product/<product-id> <http://127.0.0.1:8000/staff/update-product/100>`_
 
@@ -263,7 +263,7 @@ The specific <product-id> is sent in the url from the form of `/staff/view-produ
 Using the django messages framework, a success message stating that the data has been deleted is returned to the template.
 
 Update Product
-********
+**************
 
 12. `/staff/update-product/<product-id> <http://127.0.0.1:8000/staff/update-product/100>`_
 
@@ -271,11 +271,11 @@ Update Product
 
 * When the url along with the <product-id> gets hit, the view returns the product add form with the populated data of the same ID using queryset.
 
-. list-table:: **Product update form**
+.. list-table:: **Product update form**
    :widths: 25 25 25
    :header-rows: 1
 
-    * - Fields
+   * - Fields
      - Input Type
      - Attribute
    * - Name
@@ -299,7 +299,7 @@ Using the django messages framework, a success message stating that the data has
 
 
 Add BLog
-********
+**********
 
 13. `/staff/add-blog <http://127.0.0.1:8000/staff/add-blog>`_
 
@@ -342,9 +342,9 @@ Add BLog
 * Based on the input data, the server sends different responses. Using the django messages framework, a success message is displayed if the data is valid whereas an error message is displayed if the data is invalid.
 
 View Blog
-********
+**********
 
-14. `/staff/view-blog <http://127.0.0.1:8000/staff/view-blog>`_
+14. `/staff/view-blog <http://127.0.0.1:8000/staff/view-blog>`__
 
 **Request**
 
@@ -355,7 +355,7 @@ View Blog
 * When the "GET" request is sent to the server, the view returns the list of the the blogs from the "Blog" model using queryset.
 
 Delete Blog
-********
+************
 
 15. `/staff/delete-blog/<blog-id> <http://127.0.0.1:8000/staff/delete-blog/100>`_
 
@@ -364,13 +364,14 @@ Delete Blog
 * When this url gets hit, the respective view "delete-blog" is called.
 
 **Method: POST**
-The specific <blog-id> is sent in the url from the form of `/staff/view-blog <http://127.0.0.1:8000/staff/view-blog>`_ and passed onto the view. And, the record of the specific Id is deleted from the "Blog" model using delete() method.
+The specific <blog-id> is sent in the url from the form of `/staff/view-blog <http://127
+.0.0.1:8000/staff/view-blog>`_ and passed onto the view. And, the record of the specific Id is deleted from the "Blog" model using delete() method.
 
 **Response**
 Using the django messages framework, a success message stating that the data has been deleted is returned to the template.
 
 Update Blog
-********
+************
 
 16. `/staff/update-blog/<product-id> <http://127.0.0.1:8000/staff/update-blog/100>`_
 
@@ -402,7 +403,7 @@ Update Blog
      - Required
 
 **Method: POST**
-The specific <blog-id> is sent in the url from the form of `/staff/view-blog <http://127.0.0.1:8000/staff/view-vlog>`_ and passed onto the view. And, the record of the specific Id is deleted from the "Product" model using delete() method.
+The specific <blog-id> is sent in the url from the form of `/staff/view-blog <http://127.0.0.1:8000/staff/view-vlog>`__ and passed onto the view. And, the record of the specific Id is deleted from the "Product" model using delete() method.
 
 **Response**
 Using the django messages framework, a success message stating that the data has been deleted is returned to the template.

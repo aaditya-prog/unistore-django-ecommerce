@@ -100,12 +100,8 @@ def delete_cart(request, id):
 def modify_cart(request, id):
     if request.method == "POST":
         quantity = request.POST.get("quantity")
-        if quantity > 5:
-            messages.error(request, "Only 5 items can be bought at once")
-        else:
-            Cart.objects.filter(pk=id).update(quantity=quantity)
-            messages.success(request, "Product successfully deleted.")
-    return redirect("store:index")
+        Cart.objects.filter(pk=id).update(quantity=quantity)
+        return redirect("store:index")
 
 
 @login_required

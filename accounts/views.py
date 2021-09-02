@@ -94,12 +94,18 @@ def register(request):
             name = fm.cleaned_data["full_name"]
             email = fm.cleaned_data["email"]
             password = fm.cleaned_data["password"]
-            if len(password) < 8:
+            if len(name) < 3:
                 messages.error(
-                    request, "Your password must contain more than 8 characters"
+                    request, "Invalid name, try again."
+                )
+            elif has_numbers(name):
+                messages.error(request, "Numbers are not allowed in names.")
+            elif len(password) < 8:
+                messages.error(
+                    request, "Your password must contain more than 8 characters."
                 )
             elif not has_numbers(password):
-                messages.error(request, "Your password must contain a numeric value")
+                messages.error(request, "Your password must contain a numeric value.")
             else:
                 user = User(full_name=name, email=email, password=password)
                 user.is_active = False

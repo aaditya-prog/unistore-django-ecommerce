@@ -50,6 +50,7 @@
             src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
+    <script src="{% static 'js/ajax/action.js'%}"></script>
     <![endif]-->
 </head>
 
@@ -96,7 +97,7 @@
                                 <label>{{ item.product.category }}</label>
                                 <p class="price">${{ item.product.price }}</p>
                             </div>
-                        <div class="controls">
+                            <div class="controls">
                                 <form action="{% url 'store:modify' item.id %}" method="POST">
                                     {% csrf_token %}
                                     <div class="input-group">
