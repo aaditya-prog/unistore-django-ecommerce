@@ -1,4 +1,4 @@
-$(document).ready(function () {
+(document).ready(function () {
     //Cart
     //Remove
     $('.checkout-cart').on('click', 'a[href="#remove"]', function () {

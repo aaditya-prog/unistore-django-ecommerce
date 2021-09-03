@@ -13,12 +13,8 @@ class RegisterForm(forms.ModelForm):
 
         labels = {"full_name": "Full Name", "email": "Email", "password": "Password"}
 
-        # help_text = {
-        #     "password": "Include numbers for better security",
-        # }
-
         error_messages = {
-            "full_name": {"required": "you must enter your name"},
+            "full_name": {"required": "You must enter your name"},
             "email": {"required": "Email required"},
             "password": {"required": "You must enter your password"},
         }

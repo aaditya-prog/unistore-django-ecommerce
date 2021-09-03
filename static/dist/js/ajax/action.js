@@ -6,7 +6,7 @@ $(document).ready(function () {
             total = 0
             total_quantity = 0
             var cartRow = cartRows[i]
-            var priceElement = cartRow.getElementsByClassName('cart-price')[0]
+            var priceElement = cartRow.getElementsByClassName('price')[0]
             var quantityElement = cartRow.getElementsByClassName('item-qty')[0]
             var price = parseFloat(priceElement.innerText.replace('$', ''))
             var quantity = quantityElement.value

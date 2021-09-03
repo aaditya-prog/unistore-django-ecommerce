@@ -28,6 +28,9 @@ def index(request):
     paginator = Paginator(products, 6)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+    total = 0
+    for item in products:
+        total = total + int(item.product.price)
 
     my_filter = ProductFilter(request.GET, queryset=products)
     products = my_filter.qs
