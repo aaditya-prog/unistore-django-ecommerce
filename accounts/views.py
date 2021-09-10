@@ -2,12 +2,8 @@ from unicodedata import category
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.password_validation import validate_password
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.exceptions import ValidationError
 from django.core.mail import BadHeaderError, EmailMessage, send_mail
-from django.http import HttpResponseRedirect
 from django.shortcuts import HttpResponse, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -16,9 +12,9 @@ from django.utils.encoding import (DjangoUnicodeDecodeError, force_bytes,
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
 from blog.models import Blog
-from store.models import Category, Product
+from store.models import Product
 
-from .decorators import admin_access, login_excluded
+from .decorators import login_excluded
 from .forms import ContactForm, LoginForm, RegisterForm
 from .models import User
 from .utils import generate_token
@@ -95,9 +91,7 @@ def register(request):
             email = fm.cleaned_data["email"]
             password = fm.cleaned_data["password"]
             if len(name) < 3:
-                messages.error(
-                    request, "Invalid name, try again."
-                )
+                messages.error(request, "Invalid name, try again.")
             elif has_numbers(name):
                 messages.error(request, "Numbers are not allowed in names.")
             elif len(password) < 8:

@@ -119,7 +119,7 @@ MEDIA_URL = "/images/products/download/"
 MEDIA_ROOT = BASE_DIR / "media"
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-
+TEST_IMAGE = os.path.join(BASE_DIR, "test_image.jpg")
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
@@ -163,4 +163,4 @@ TINYMCE_DEFAULT_CONFIG = {
     "statusbar": True,
 }
 
-DOCS_ROOT = os.path.join(BASE_DIR, 'docs/_build/html')
+DOCS_ROOT = os.path.join(BASE_DIR, "docs/_build/html")

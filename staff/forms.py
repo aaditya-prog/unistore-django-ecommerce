@@ -51,7 +51,10 @@ class BlogForm(forms.ModelForm):
 
         error_messages = {
             "title": {"required": "You must provide the blog title"},
+            "description": {"required": "Error: description of the blog required"},
+            "date": {"required": "Date required"},
             "image": {"required": "Error: image required"},
+            "url": {"required": "Error: Please enter the URL for the full blog."},
         }
 
 

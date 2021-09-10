@@ -100,42 +100,11 @@
                                             <p class="price cart-price"> ${{ item.product.price }}</p>
                                         </div>
                                         <div class="controls">
-                                            <form action="{% url 'store:modify' item.id %}" method="POST">
-                                                {% csrf_token %}
-                                                <div class="input-group">
-
-                            <span class="input-group-btn">
-                            <button
-                                    class="btn btn-default btn-sm"
-                                    type="button"
-                                    data-action="minus"
-                            >
-                         <i class="ion-minus-round"></i>
-                            </button>
-                            </span>
-
-                                                    <input
-                                                            type="text"
-                                                            class="form-control input-sm"
-                                                            placeholder="Qty"
-                                                            value="{{ item.quantity }}"
-                                                            readonly=""
-                                                            name="quantity"
-                                                    />
-
-
-                                                    <span class="input-group-btn">
-                                <button
-                                        class="btn btn-default btn-sm"
-                                        type="button"
-                                        data-action="plus"
-                                >
-                                    <i class="ion-plus-round"></i>
-                                </button>
-                                </span>
-                                                </div>
-                                                <input class="btn-sm btn-primary" type="submit" value="Modify">
+                                            <form>
+                                                <input class="form-control input-sm item-qty"
+                                                       type="number" value="1" min="1">
                                             </form>
+                                            <br/>
                                             <!-- /input-group -->
                                             <form action="{% url 'store:remove' item.id %}" method="POST">
                                                 {% csrf_token %}

@@ -14,9 +14,9 @@ import os
 import sys
 
 import django
-import sphinx_pdj_theme
 # At the top.
 import sphinx_bootstrap_theme
+import sphinx_pdj_theme
 
 sys.path.insert(0, os.path.abspath(".."))
 os.environ["DJANGO_SETTINGS_MODULE"] = "Unistore.settings"
@@ -51,7 +51,7 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # html_theme = "sphinx_pdj_theme"
 # html_theme_path = [sphinx_pdj_theme.get_html_theme_path()]
 
-html_theme = 'bootstrap'
+html_theme = "bootstrap"
 html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 
 # Add any paths that contain custom static files (such as style sheets) here,

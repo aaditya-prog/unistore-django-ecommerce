@@ -78,7 +78,7 @@ def update_user(request, id):
 @admin_access("accounts:index")
 def logout(request):
     auth_logout(request)
-    return render(request, "accounts/index.html")
+    return render(request, "home/index.html")
 
 
 @login_required
